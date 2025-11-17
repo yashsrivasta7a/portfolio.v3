@@ -47,8 +47,10 @@ export default function RootLayout({ children }) {
             </svg>
           </Cursor>
         </CursorProvider>
+<main className=" pt-24">
 
         {children}
+</main>
       </body>
     </html>
   );

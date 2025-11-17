@@ -45,7 +45,7 @@ export default function DashboardPage() {
     <div className="min-h-screen pt-10 z-99">
       {/* <NavbarWrapper /> */}
 
-      <div className="flex flex-col justify-center items-center px-4 pt-24">
+      <div className="flex flex-col justify-center items-center px-4">
         <motion.div
           variants={parentVariants}
           initial="hidden"
@@ -103,13 +103,13 @@ export default function DashboardPage() {
 
             <span
               className="absolute left-1/2 bottom-0 -translate-x-1/2 bg-gradient-to-r 
-              from-transparent via-blue-500 to-transparent h-[2px] w-[80%]"
+              from-transparent via-blue-500 to-transparent h-[2px] w-[100%]"
             />
 
             <span
               className="absolute left-1/2 bottom-0 -translate-x-1/2 opacity-0 
               group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-r 
-              from-transparent via-blue-500 to-transparent h-[4px] w-[100%] blur-sm"
+              from-transparent via-blue-500 to-transparent h-[6px] w-[100%] blur-sm"
             />
           </div>
 
@@ -132,7 +132,7 @@ export default function DashboardPage() {
           <h1 className="satoshi2 tracking-[0.01em] text-2xl sm:text-3xl md:text-5xl font-bold">
             DEVELOPER
           </h1>
-          <h2 className="satoshi-italic ">
+          <h2 className="satoshi3 ">
             Engineering efficiency, crafting experiences.
           </h2>
         </motion.div>
