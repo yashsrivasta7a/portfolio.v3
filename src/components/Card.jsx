@@ -49,7 +49,7 @@ function Card({
     hover: {
       opacity: 1,
       scale: 1,
-      y: 20,
+      y: 30,
       transition: { duration: 0.45, ease: "easeInOut" },
     },
   };
