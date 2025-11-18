@@ -177,10 +177,10 @@ function Card({
                   className="absolute inset-0 z-20 flex justify-center items-center"
                 >
                   <Image
-                    width={550}
+                    width={450}
                     height={440}
                     alt="project"
-                    className="rounded-xl mt-10 w-[95%] sm:w-[80%] lg:w-auto max-w-full h-auto max-h-[90%] object-contain drop-shadow-2xl scale-110"
+                    className="rounded-xl mt-10 w-[95%] sm:w-[80%] lg:w-auto max-w-full h-auto max-h-[90%] object-contain drop-shadow-2xl scale-105"
                     src={image ? image : "/images/projects/interviewD.jpg"}
                   />
                 </motion.div>

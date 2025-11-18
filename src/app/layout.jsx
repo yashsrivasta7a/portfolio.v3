@@ -24,6 +24,7 @@ export const metadata = {
   description: " YashSrivasta7a",
 };
 
+
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
