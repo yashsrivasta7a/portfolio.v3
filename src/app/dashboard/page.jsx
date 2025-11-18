@@ -4,6 +4,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import MouseIcon from "@/components/ui/mouse";
 import NavbarWrapper from "@/components/NavbarWrapper";
+import { LocateIcon, LocateOffIcon } from "lucide-react";
 
 export default function DashboardPage() {
   const parentVariants = {
@@ -86,10 +87,16 @@ export default function DashboardPage() {
               initial={{ opacity: 0, x: -15, skewX: 10 }}
               animate={{ opacity: 1, x: 0, skewX: 0 }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 1.9 }}
-              className="hidden md:block absolute right-[8rem] top-[12.5rem]
+              className="hidden md:block  absolute right-[8rem] top-[12.5rem]
               bg-gray-700 py-2 px-4 rounded-full text-xs font-semibold text-white shadow-md whitespace-nowrap"
             >
-              &lt;Developer/&gt;
+              <div className="flex flex-row ">
+                <LocateIcon>
+
+              </LocateIcon>
+              <h1 className="relative text-lg bottom-0.5 left-0.5">India</h1>
+              </div>
+              {/* &lt;Developer/&gt; */}
             </motion.div>
           </motion.div>
           <div className="relative -z-40 group">
