@@ -31,8 +31,10 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        
-        <NavbarWrapper className="relative z-100" />
+        <div className="relative z-1000 ">
+
+        <NavbarWrapper  />
+        </div>
         <CursorProvider>
           <Cursor>
             <svg
@@ -48,7 +50,7 @@ export default function RootLayout({ children }) {
             </svg>
           </Cursor>
         </CursorProvider>
-<main className=" pt-24">
+<main className="pt-24">
 
         {children}
 </main>

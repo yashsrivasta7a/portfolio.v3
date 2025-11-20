@@ -44,8 +44,6 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen pt-10 z-99">
-      {/* <NavbarWrapper /> */}
-
       <div className="flex flex-col justify-center items-center px-4">
         <motion.div
           variants={parentVariants}
@@ -91,15 +89,13 @@ export default function DashboardPage() {
               bg-gray-700 py-2 px-4 rounded-full text-xs font-semibold text-white shadow-md whitespace-nowrap"
             >
               <div className="flex flex-row ">
-                <LocateIcon>
-
-              </LocateIcon>
-              <h1 className="relative text-lg bottom-0.5 left-0.5">India</h1>
+                <LocateIcon></LocateIcon>
+                <h1 className="relative text-lg bottom-0.5 left-0.5">India</h1>
               </div>
               {/* &lt;Developer/&gt; */}
             </motion.div>
           </motion.div>
-          <div className="relative -z-40 group">
+          <div className="relative z-10 group">
             <Image
               src="/images/admin.jpg"
               alt="Profile"

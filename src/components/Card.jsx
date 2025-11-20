@@ -35,7 +35,7 @@ function Card({
     },
   };
   const childVariants2 = {
-    initial: { opacity: 1, scale: 1, y: 20 },
+    initial: { opacity: 1, scale: 1, y: 20  },
     hover: {
       opacity: 1,
       scale: 0.98,
