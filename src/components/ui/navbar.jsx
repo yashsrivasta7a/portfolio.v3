@@ -177,7 +177,7 @@ const Navbar = ({
   };
 
   return (
-    <div className="fixed top-4 z-[1000] w-full left-0 md:w-auto md:left-1/2 md:-translate-x-1/2 px-4 md:px-0 ">
+    <div className="fixed top-4 z-[1000] w-full left-0 md:w-auto md:left-1/2 md:-translate-x-1/2 px-4 md:px-0  cursor-none">
       <nav
         className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 md:px-6 ${className}`}
         aria-label="Primary"

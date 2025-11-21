@@ -8,7 +8,6 @@ import {
 } from "@/components/ui/shadcn-io/animated-cursor";
 import { motion } from "motion/react";
 import NavbarWrapper from "@/components/NavbarWrapper";
-
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
@@ -28,7 +27,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} antialiased `}
       >
         <div className="relative z-1000 ">
           <NavbarWrapper />
@@ -47,7 +46,7 @@ export default function RootLayout({ children }) {
             </svg>
           </Cursor>
         </CursorProvider>
-        <main className="pt-24">{children}</main>
+        <main >{children}</main>
       </body>
     </html>
   );

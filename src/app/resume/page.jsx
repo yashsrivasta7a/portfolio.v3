@@ -7,7 +7,7 @@ export default function ResumePage() {
     <iframe
       title="Resume PDF"
       src="/resume.pdf"
-      className="w-full h-screen block"
+      className="w-full h-screen block z-111011 pt-0"
       style={{ border: 0 }}
     />
   );

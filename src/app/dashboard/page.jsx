@@ -42,7 +42,7 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="min-h-screen pt-10 z-99">
+    <div className="min-h-auto pb-10 pt-10 z-99">
       {/* <NavbarWrapper /> */}
 
       <div className="flex flex-col justify-center items-center px-4">
