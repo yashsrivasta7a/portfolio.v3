@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256">
+  <defs>
+    <linearGradient id="igOld" x1="0%" y1="100%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#f58529"/>
+      <stop offset="25%" stop-color="#feda77"/>
+      <stop offset="50%" stop-color="#dd2a7b"/>
+      <stop offset="75%" stop-color="#8134af"/>
+      <stop offset="100%" stop-color="#515bd4"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background Gradient -->
+  <rect width="256" height="256" rx="60" fill="url(#igOld)"/>
+
+  <!-- White Instagram camera outline -->
+  <g transform="scale(7.5) translate(5 5)" fill="none" stroke="white" stroke-width="2">
+    <!-- Outer rounded square -->
+    <rect x="2" y="2" width="20" height="20" rx="5" />
+
+    <!-- Lens -->
+    <circle cx="12" cy="12" r="4.5" />
+
+    <!-- Flash dot -->
+    <circle cx="17.5" cy="6.5" r="1.5" fill="white" stroke="none" />
+  </g>
+
+</svg>

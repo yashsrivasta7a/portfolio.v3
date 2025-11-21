@@ -5,7 +5,7 @@ import Card from '@/components/Card.jsx'
 function FeaturedPage() {
   return (
   <div>
-  <div className="satoshi5 text-3xl mt-10 tracking-widest items-center flex justify-center mb-6">
+  <div className="satoshi5 text-2xl lg:text-3xl mt-10 lg:tracking-widest text-gray-700 flex justify-center mb-6">
     FEATURED PROJECTS
   </div>
   {/* <div className="grid md:grid-cols-2 gap-10 mx-10 md:mx-32"></div> */}
@@ -16,7 +16,7 @@ function FeaturedPage() {
     <Card size="lg" title="From Resume to Website in" shadowTo="#035476" shadowFrom="#a63f1a" image='/images/projects/showfolio.png'  title2='One Click' textColor='#035476'  gradientEnd='#1E2233' gradientStart='#035476' content='Showfolio simplifies personal branding by converting resumes into stylish, responsive portfolio sites built for professionals.' />
     <Card size="lg" title="Share, Organize & Discover. All in your" shadowTo="#035476" shadowFrom="#a63f1a" image='/images/projects/es.png'  title2='Essential Space ' textColor='#52B9C8'  gradientEnd='#52B9C8' gradientStart='#035476' content='A modern platform for organizing notes, links, and ideas with intelligent search and one-click summaries, plus secure public/private sharing.' />
     <Card size="lg" title="Create & Curate AI Art with" shadowTo="#a63f1a" shadowFrom="#a63f1a" image='/images/projects/dreampix.png'  title2='DreamPix' textColor='#ff5418'  gradientEnd='#ff5418' gradientStart='#e05c2c' content='An immersive platform that generates unique images from text, featuring a personalized gallery, user accounts, and a polished, modern interface.' />
-    <Card size="lg" title="Life-Saving Connections, Powered by" shadowTo="#a855f7" shadowFrom="#a855f7" image='/images/projects/flow4life.png'  title2='Tech' textColor='#ef4444'  gradientEnd='#7b2222' gradientStart='#ef4444' content='A seamless platform that enables users to request blood, find nearby donors, chat in real time, and stay updated with instant notifications.' />
+    <Card size="lg" title="Life-Saving Connections, Powered by" shadowTo="#7b2222" shadowFrom="#7b2222" image='/images/projects/flow4life.png'  title2='Tech' textColor='#ef4444'  gradientEnd='#7b2222' gradientStart='#ef4444' content='A seamless platform that enables users to request blood, find nearby donors, chat in real time, and stay updated with instant notifications.' />
   </div>
 </div>
 

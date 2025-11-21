@@ -4,7 +4,6 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import MouseIcon from "@/components/ui/mouse";
 import NavbarWrapper from "@/components/NavbarWrapper";
-import { LocateIcon, LocateOffIcon } from "lucide-react";
 
 export default function DashboardPage() {
   const parentVariants = {
@@ -44,6 +43,8 @@ export default function DashboardPage() {
 
   return (
     <div className="min-h-screen pt-10 z-99">
+      {/* <NavbarWrapper /> */}
+
       <div className="flex flex-col justify-center items-center px-4">
         <motion.div
           variants={parentVariants}
@@ -85,17 +86,21 @@ export default function DashboardPage() {
               initial={{ opacity: 0, x: -15, skewX: 10 }}
               animate={{ opacity: 1, x: 0, skewX: 0 }}
               transition={{ duration: 0.6, ease: "easeOut", delay: 1.9 }}
-              className="hidden md:block  absolute right-[8rem] top-[12.5rem]
-              bg-gray-700 py-2 px-4 rounded-full text-xs font-semibold text-white shadow-md whitespace-nowrap"
+              className="hidden satoshi2  md:flex items-center gap-1 absolute right-[8rem] top-[12.5rem]
+  bg-gray-700 py-2 px-4 rounded-full text-md font-semibold text-white shadow-md whitespace-nowrap"
             >
-              <div className="flex flex-row ">
-                <LocateIcon></LocateIcon>
-                <h1 className="relative text-lg bottom-0.5 left-0.5">India</h1>
-              </div>
-              {/* &lt;Developer/&gt; */}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+                className="w-4 h-4"
+              >
+                <path d="M12 2C8.686 2 6 4.686 6 8c0 4.418 6 12 6 12s6-7.582 6-12c0-3.314-2.686-6-6-6zm0 8.5A2.5 2.5 0 1 1 12 5a2.5 2.5 0 0 1 0 5.5z" />
+              </svg>
+              India
             </motion.div>
           </motion.div>
-          <div className="relative z-10 group">
+          <div className="relative -z-40 group">
             <Image
               src="/images/admin.jpg"
               alt="Profile"

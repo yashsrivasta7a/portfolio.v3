@@ -183,7 +183,7 @@ const Navbar = ({
         aria-label="Primary"
         style={{ ...cssVars, background: '#ffffff', height: navHeight }}
       >
-        <a href="">
+        {/* <a href="">
           <Image
                               width={50}
                               height={50}
@@ -191,7 +191,7 @@ const Navbar = ({
                               className="rounded-3xl invert"
                               src="/images/logo.png"
                             />
-        </a>
+        </a> */}
         {/* Desktop Navigation */}
         <div className="hidden md:flex items-center ml-3">
           <ul
