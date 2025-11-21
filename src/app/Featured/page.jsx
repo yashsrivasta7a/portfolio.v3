@@ -24,4 +24,4 @@ function FeaturedPage() {
   )
 }
 
-export default FeaturedPage
+export default FeaturedPage;

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import DashboardPage from "./dashboard/page.jsx";
 import FeaturedPage from "./featured/page.jsx";
 import { Internship } from "./internship/page.jsx";
