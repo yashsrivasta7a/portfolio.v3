@@ -1,8 +1,8 @@
 import Image from "next/image";
-import DashboardPage from "./dashboard/page";
-import FeaturedPage from "./featured/page";
-import { Internship } from "./internship/page";
-import StackPage from "./stack/page";
+import DashboardPage from "./dashboard/page.jsx";
+import FeaturedPage from "./featured/page.jsx";
+import { Internship } from "./internship/page.jsx";
+import StackPage from "./stack/page.jsx";
 
 export default function Home() {
   return (
