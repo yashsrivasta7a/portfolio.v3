@@ -13,14 +13,11 @@ export default function TechStack() {
     "PostgreSQL",
     "MongoDB",
     "Docker",
-
   ];
 
   return (
     <section className=" p-20  justify-center items-center text-center bg-transparent">
-      <h2 className="text-3xl tracking-widest mb-4 text-gray-700 satoshi5 ">
-        SKILLS
-      </h2>
+      <h2 className="text-3xl tracking-widest mb-4 text-gray-700 satoshi5 ">SKILLS</h2>
 
       <div className="flex flex-wrap justify-center gap-3 ">
         {skills.map((skill, idx) => (

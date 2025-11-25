@@ -4,7 +4,7 @@ import { Timeline } from "@/components/ui/timeline";
 import ExperienceCard from "@/components/ui/ExperienceCard";
 import { AnimatedTooltip } from "@/components/ui/shadcn-io/animated-tooltip";
 
-export function Internship() {
+export default function Internship() {
   const data = [
     {
       title: "2025",
@@ -70,14 +70,56 @@ export function Internship() {
   ];
 
   const people = [
-  { id: 1, name: "GitHub", designation: "Code & Projects", link: "https://github.com/yashsrivasta7a", image: "/images/contact/github.svg" },
-  { id: 2, name: "LinkedIn", designation: "Professional Profile", link: "https://linkedin.com/in/yashsrivasta7a", image: "/images/contact/linkedin.svg" },
-  { id: 7, name: "Instagram", designation: "Photos & Life", link: "https://instagram.com/yashsrivasta7a", image: "/images/contact/instagram.svg" },
-  { id: 3, name: "Twitter (X)", designation: "Thoughts & Updates", link: "https://twitter.com/yashsrivasta7a", image: "/images/contact/x.svg" },
-  { id: 4, name: "LeetCode", designation: "Coding Challenges", link: "https://leetcode.com/yashsrivasta7a", image: "/images/contact/leetcode.svg" },
-  { id: 5, name: "Gmail", designation: "Email Contact", link: "mailto:yashsrivasta7a@gmail.com", image: "/images/contact/gmail.svg" },
-  { id: 6, name: "Peerlist", designation: "Developer Portfolio", link: "https://peerlist.io/yashsrivasta7a", image: "/images/contact/peerlist.svg" },
-];
+    {
+      id: 1,
+      name: "GitHub",
+      designation: "Code & Projects",
+      link: "https://github.com/yashsrivasta7a",
+      image: "/images/contact/github.svg",
+    },
+    {
+      id: 2,
+      name: "LinkedIn",
+      designation: "Professional Profile",
+      link: "https://linkedin.com/in/yashsrivasta7a",
+      image: "/images/contact/linkedin.svg",
+    },
+    {
+      id: 7,
+      name: "Instagram",
+      designation: "Photos & Life",
+      link: "https://instagram.com/yashsrivasta7a",
+      image: "/images/contact/instagram.svg",
+    },
+    {
+      id: 3,
+      name: "Twitter (X)",
+      designation: "Thoughts & Updates",
+      link: "https://twitter.com/yashsrivasta7a",
+      image: "/images/contact/x.svg",
+    },
+    {
+      id: 4,
+      name: "LeetCode",
+      designation: "Coding Challenges",
+      link: "https://leetcode.com/yashsrivasta7a",
+      image: "/images/contact/leetcode.svg",
+    },
+    {
+      id: 5,
+      name: "Gmail",
+      designation: "Email Contact",
+      link: "mailto:yashsrivasta7a@gmail.com",
+      image: "/images/contact/gmail.svg",
+    },
+    {
+      id: 6,
+      name: "Peerlist",
+      designation: "Developer Portfolio",
+      link: "https://peerlist.io/yashsrivasta7a",
+      image: "/images/contact/peerlist.svg",
+    },
+  ];
 
   return (
     <div>
