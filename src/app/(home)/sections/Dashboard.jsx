@@ -3,9 +3,8 @@
 import Image from "next/image";
 import { motion } from "framer-motion";
 import MouseIcon from "@/components/ui/mouse";
-import NavbarWrapper from "@/components/NavbarWrapper";
 
-export default function DashboardPage() {
+export default function Dashboard() {
   const parentVariants = {
     hidden: { opacity: 0, scale: 0.85, filter: "blur(20px)" },
     visible: {
@@ -89,25 +88,14 @@ export default function DashboardPage() {
               className="hidden satoshi2  md:flex items-center gap-1 absolute right-[8rem] top-[12.5rem]
   bg-gray-700 py-2 px-4 rounded-full text-md font-semibold text-white shadow-md whitespace-nowrap"
             >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 24 24"
-                fill="currentColor"
-                className="w-4 h-4"
-              >
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4">
                 <path d="M12 2C8.686 2 6 4.686 6 8c0 4.418 6 12 6 12s6-7.582 6-12c0-3.314-2.686-6-6-6zm0 8.5A2.5 2.5 0 1 1 12 5a2.5 2.5 0 0 1 0 5.5z" />
               </svg>
               India
             </motion.div>
           </motion.div>
           <div className="relative -z-40 group">
-            <Image
-              src="/images/admin.jpg"
-              alt="Profile"
-              width={220}
-              height={220}
-              className="rounded-2xl shadow-xl"
-            />
+            <Image src="/images/admin.jpg" alt="Profile" width={220} height={220} className="rounded-2xl shadow-xl" />
 
             <span
               className="absolute left-1/2 bottom-0 -translate-x-1/2 bg-gradient-to-r 
@@ -134,15 +122,9 @@ export default function DashboardPage() {
           animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
           transition={{ duration: 0.5, ease: "easeInOut" }}
         >
-          <h1 className="satoshi2 tracking-[0.06em] text-2xl sm:text-3xl md:text-5xl font-bold">
-            SOFTWARE
-          </h1>
-          <h1 className="satoshi2 tracking-[0.01em] text-2xl sm:text-3xl md:text-5xl font-bold">
-            DEVELOPER
-          </h1>
-          <h2 className="satoshi3 ">
-            Engineering efficiency, crafting experiences.
-          </h2>
+          <h1 className="satoshi2 tracking-[0.06em] text-2xl sm:text-3xl md:text-5xl font-bold">SOFTWARE</h1>
+          <h1 className="satoshi2 tracking-[0.01em] text-2xl sm:text-3xl md:text-5xl font-bold">DEVELOPER</h1>
+          <h2 className="satoshi3 ">Engineering efficiency, crafting experiences.</h2>
         </motion.div>
       </div>
     </div>
