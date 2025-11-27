@@ -26,7 +26,7 @@ export default function AboutPage() {
                         initial={{ opacity: 0, y: 100 }}
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
-                        className="text-[12vw] leading-[0.85] font-bold tracking-tighter text-[#1a1a1a]"
+                        className="text-[12vw] satoshi1 leading-[0.85] font-bold tracking-tighter text-[#1a1a1a]"
                     >
                         Yash
                     </motion.h1>
