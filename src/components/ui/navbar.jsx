@@ -18,7 +18,7 @@ const Navbar = ({
   hoveredPillTextColor = '#ffffff',
   pillTextColor = '#364153',
   lastItemColor = '#2b7fff',
-  navHeight = '4rem'
+  navHeight = '5rem'
 }) => {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const circleRefs = useRef([]);
@@ -83,7 +83,7 @@ const Navbar = ({
     window.addEventListener('resize', onResize);
 
     if (document.fonts?.ready) {
-      document.fonts.ready.then(layout).catch(() => {});
+      document.fonts.ready.then(layout).catch(() => { });
     }
 
     const menu = mobileMenuRef.current;
@@ -172,12 +172,12 @@ const Navbar = ({
     ['--pill-text']: pillTextColor,
     ['--last-item-color']: lastItemColor,
     ['--nav-h']: navHeight,
-    ['--pill-pad-x']: '39px',
+    ['--pill-pad-x']: '9px',
     ['--pill-gap']: '12px'
   };
 
   return (
-    <div className="fixed top-4 z-[1000] w-full left-0 md:w-auto md:left-1/2 md:-translate-x-1/2 px-4 md:px-0  cursor-none">
+    <div className="w-full flex justify-center px-4 md:px-0 cursor-none">
       <nav
         className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 md:px-6 ${className}`}
         aria-label="Primary"
@@ -211,7 +211,7 @@ const Navbar = ({
               };
 
               const basePillClasses =
-                'relative satoshi1 overflow-hidden inline-flex items-center justify-center py-2 h-full no-underline rounded-full box-border font-semibold text-[19px] leading-[0] tracking-[0.3px] whitespace-nowrap cursor-pointer ';
+                'relative satoshi1 overflow-hidden inline-flex items-center justify-center py-5 h-full no-underline rounded-full box-border font-semibold text-[19px] leading-[0] tracking-[0.3px] whitespace-nowrap cursor-pointer ';
 
               return (
                 <li key={item.href} role="none" className="flex h-full">
@@ -253,7 +253,7 @@ const Navbar = ({
                         {item.label}
                       </span>
                     </span>
-                    
+
                   </a>
                 </li>
               );

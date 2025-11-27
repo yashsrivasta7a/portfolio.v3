@@ -3,6 +3,7 @@ import React from "react";
 import { Timeline } from "@/components/ui/timeline";
 import ExperienceCard from "@/components/ui/ExperienceCard";
 import { AnimatedTooltip } from "@/components/ui/shadcn-io/animated-tooltip";
+import { motion } from "framer-motion";
 
 export default function Internship() {
   const data = [
@@ -123,15 +124,29 @@ export default function Internship() {
 
   return (
     <div>
-      <div className="relative w-full overflow-clip">
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="relative w-full overflow-clip"
+      >
         <Timeline data={data} />
-      </div>
-      <div className="flex flex-row justify-center gap-5 font-bold flex-wrap mt-20 mb-10">
-        <h1 className="satoshi3 text-gray-700 text-6xl">CONTACT ME:</h1>
-        <div className="flex flex-row items-center justify-center mb-10 w-autos">
+      </motion.div>
+
+
+      {/* <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="flex flex-col lg:flex-row justify-center items-center gap-5 font-bold flex-wrap mt-20 mb-10"
+      >
+        <h1 className="satoshi3 text-gray-700 text-4xl md:text-6xl text-center">CONTACT ME:</h1>
+        <div className="flex flex-row items-center justify-center w-autos">
           <AnimatedTooltip items={people} />
         </div>
-      </div>
+      </motion.div> */}
     </div>
   );
 }

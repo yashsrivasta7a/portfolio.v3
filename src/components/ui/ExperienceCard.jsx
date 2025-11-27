@@ -14,7 +14,7 @@ export default function ExperienceCard({
 }) {
   return (
     <div className="w-full flex flex-col md:flex-row md:items-start gap-6 md:gap-10">
-      
+
       {/* LEFT: CARD */}
       <motion.div
         initial={{ opacity: 0, y: 25 }}
@@ -49,7 +49,7 @@ export default function ExperienceCard({
         </p>
 
         {/* Meta */}
-        <div className="flex items-center justify-between text-xs text-gray-500 dark:text-gray-400 mb-3">
+        <div className="flex items-center justify-between text-xs text-gray-700 dark:text-gray-400 mb-3">
           <span>{location}</span>
           <span>{duration}</span>
         </div>
