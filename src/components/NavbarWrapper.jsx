@@ -7,9 +7,7 @@ import { usePathname } from "next/navigation";
 export default function NavbarWrapper() {
   const pathname = usePathname();
 
-  if (pathname === "/resume") {
-    return null;
-  }
+
 
   return (
     <motion.div
