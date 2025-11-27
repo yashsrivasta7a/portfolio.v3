@@ -14,10 +14,10 @@ export default function ResumePage() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, ease: "easeOut" }}
         >
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter text-neutral-900 mb-2">
+          <h1 className="text-5xl satoshi1 md:text-7xl font-bold tracking-tighter text-neutral-900 mb-2">
             Resume
           </h1>
-          <p className="text-neutral-500 text-lg font-medium">
+          <p className="text-neutral-500 satoshi4 text-lg font-medium">
             My professional journey & qualifications.
           </p>
         </motion.div>
@@ -37,23 +37,18 @@ export default function ResumePage() {
         </motion.a>
       </div>
 
-      {/* PDF Viewer Container */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.8, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-        className="max-w-5xl w-full h-[80vh] md:h-[110vh] bg-white rounded-2xl shadow-2xl overflow-hidden border border-neutral-200/50 relative group"
+        className="max-w-5xl w-full h-[100vh]"
       >
-        {/* Loading/Fallback State (visible if iframe takes time) */}
-        <div className="absolute inset-0 flex items-center justify-center bg-neutral-50 -z-10">
-          <p className="text-neutral-400 animate-pulse">Loading Document...</p>
-        </div>
-
-        <iframe
-          src="/resume.pdf"
-          className="w-full h-full border-none"
-          title="Resume PDF"
+        <embed
+          src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&pagemode=none&zoom=page-width"
+          type="application/pdf"
+          className="w-full h-screen"
         />
+
       </motion.div>
 
     </div>
