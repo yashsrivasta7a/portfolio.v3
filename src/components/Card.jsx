@@ -181,23 +181,22 @@ function Card({
               setMousePos({ x: e.clientX, y: e.clientY })
             }
             className="flex rounded-2xl sm:rounded-3xl lg:rounded-3xl bg-white 
-            items-center justify-center p-5 sm:p-8 lg:p-6 w-full 
+            items-center justify-center p-5 sm:p-8 lg:p-8 w-full 
             shadow-[0_2px_8px_rgba(0,0,0,0.08),0_12px_24px_rgba(0,0,0,0.06)] 
             hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] 
             transition-shadow duration-300"
           >
-            <div className="flex flex-col lg:grid-rows-2 gap-6 lg:gap-2 w-full">
-              <h1 className="text-2xl pl-1 sm:text-3xl lg:text-3xl xl:text-3xl leading-tight">
+            <div className="flex flex-col lg:grid-rows-2 gap-6 lg:gap-5 w-full">
+              <h1 className="text-2xl pl-1 sm:text-3xl lg:text-[2rem] xl:text-[2.2rem] leading-snug lg:leading-relaxed">
                 <span className="satoshi1 font-bold tracking-tight">
                   {title ? title : "Title"}
                 </span>
-
-                <span className={`satoshi4 ml-2`} style={{ color: textColor }}>
+                <span className={`satoshi4 block`} style={{ color: textColor }}>
                   {title2 ? title2 : "Title2"}
                 </span>
               </h1>
               <div
-                className="relative flex items-center justify-center w-full aspect-[4/3] lg:aspect-auto lg:h-96 xl:h-[20rem] rounded-2xl lg:rounded-3xl overflow-hidden order-1 lg:order-2"
+                className="relative flex items-center justify-center w-full aspect-[4/3] lg:aspect-auto lg:h-[380px] xl:h-[400px] rounded-2xl lg:rounded-3xl overflow-hidden order-1 lg:order-2"
                 style={{
                   background: `linear-gradient(to top, ${gradientStart || "#64319e"
                     }, ${gradientEnd || "#361b62"})`,
@@ -212,12 +211,7 @@ function Card({
                     {content ? content : "Content"}
                   </h1>
                 </motion.div>
-                <span
-                  className="relative top-40 z-100 h-[80px] w-full opacity-65"
-                  style={{
-                    background: `linear-gradient(to top, ${shadowFrom}, ${shadowTo}, transparent)`,
-                  }}
-                ></span>
+
 
                 <motion.div
                   variants={childVariants2}
@@ -231,6 +225,14 @@ function Card({
                     src={image ? image : "/images/projects/interviewD.jpg"}
                   />
                 </motion.div>
+
+                {/* Bottom gradient overlay */}
+                <div
+                  className="absolute bottom-0 left-0 right-0 z-30 h-24 pointer-events-none"
+                  style={{
+                    background: `linear-gradient(to top, ${gradientStart || "#361b62"}, transparent)`,
+                  }}
+                />
               </div>
             </div>
           </motion.div>

@@ -23,7 +23,7 @@ export default function ResumePage() {
         </motion.div>
 
         <motion.a
-          href="/resume.pdf"
+          href="/2026_Resume.pdf"
           download="Yash_Srivastava_Resume.pdf"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
@@ -44,7 +44,7 @@ export default function ResumePage() {
         className="max-w-5xl w-full h-[100vh]"
       >
         <embed
-          src="/resume.pdf#toolbar=0&navpanes=0&scrollbar=0&pagemode=none&zoom=page-width"
+          src="/2026_Resume.pdf#toolbar=0&navpanes=0&scrollbar=0&pagemode=none&zoom=page-width"
           type="application/pdf"
           className="w-full h-screen"
         />
