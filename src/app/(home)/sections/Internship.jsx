@@ -8,7 +8,31 @@ import { motion } from "framer-motion";
 export default function Internship() {
   const data = [
     {
-      title: "2025",
+      title: "2026",
+      content: (
+        <div>
+          <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200"></p>
+          <div className="">
+            <ExperienceCard
+              company="Galaxy.ai"
+              role="SDE Intern"
+              location="Remote"
+              duration="Jan 2026 – Present"
+              bullets={[
+                "Building an AI-powered workflow automation platform with a visual flow builder for connecting models, tools, and external APIs.",
+                "Implemented reusable node components (triggers, inputs, actions) enabling low-code orchestration of multi-step workflows.",
+                "Worked on execution and monitoring features to debug and inspect workflow runs reliably.",
+                "Collaborating with the core team to refine architecture and ship features rapidly.",
+              ]}
+              tech={["Next.js", "tRPC", "TypeScript", "Prisma", "Trigger.dev", "Tailwind CSS"]}
+              link="https://galaxy.ai"
+            />
+          </div>
+        </div>
+      ),
+    },
+    {
+      title: "Late 2025",
       content: (
         <div>
           <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200"></p>
@@ -17,7 +41,7 @@ export default function Internship() {
               company="Adquora"
               role="SDE Intern"
               location="Remote"
-              duration="Sep 2025 – Present"
+              duration="Sep 2025 – Dec 2025"
               bullets={[
                 "Contributing to Adquora’s online presence as part of the core tech team.",
                 "Designed & developed the company’s official website.",
