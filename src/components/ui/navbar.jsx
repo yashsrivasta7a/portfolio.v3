@@ -218,6 +218,8 @@ const Navbar = ({
                   <a
                     role="menuitem"
                     href={item.href}
+                    target={item.isExternal ? "_blank" : undefined}
+                    rel={item.isExternal ? "noopener noreferrer" : undefined}
                     className={basePillClasses}
                     style={pillStyle}
                     aria-label={item.ariaLabel || item.label}
@@ -283,10 +285,10 @@ const Navbar = ({
             style={{ background: '#ffffff' }}
           />
         </button>
-      </nav>
+      </nav >
 
       {/* Mobile Menu */}
-      <div
+      < div
         ref={mobileMenuRef}
         className="md:hidden absolute top-[calc(4rem+1rem)] left-0 right-0 mx-4 rounded-[32px] shadow-lg z-[998] origin-top"
         style={{
@@ -316,6 +318,8 @@ const Navbar = ({
               <li key={item.href}>
                 <a
                   href={item.href}
+                  target={item.isExternal ? "_blank" : undefined}
+                  rel={item.isExternal ? "noopener noreferrer" : undefined}
                   className={linkClasses}
                   style={defaultStyle}
                   onMouseEnter={hoverIn}
@@ -328,8 +332,8 @@ const Navbar = ({
             );
           })}
         </ul>
-      </div>
-    </div>
+      </div >
+    </div >
   );
 };
 
