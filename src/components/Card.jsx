@@ -114,7 +114,7 @@ function Card({
 
               <div
                 className="relative flex items-center justify-center w-full 
-                aspect-[4/3] lg:aspect-auto lg:h-96 xl:h-[20rem] 
+                aspect-[4/3] lg:aspect-auto lg:h-96 xl:h-96 
                 rounded-2xl lg:rounded-3xl overflow-hidden order-1 lg:order-2"
                 style={{
                   background: `linear-gradient(to top, ${gradientStart || "#64319e"
@@ -130,8 +130,8 @@ function Card({
                     width={250}
                     height={50}
                     alt="project"
-                    className="w-[95%] sm:w-[80%] lg:w-[100%] max-w-full 
-                    h-auto max-h-[90%] object-contain drop-shadow-2xl rounded-xl scale-150"
+                    className="w-[85%] sm:w-[75%] lg:w-[85%] xl:w-[80%] 2xl:w-[100%] max-w-full 
+                    h-auto max-h-[85%] 2xl:max-h-[90%] object-contain drop-shadow-2xl rounded-xl scale-125 lg:scale-110 xl:scale-[1.35] 2xl:scale-150"
                     src={
                       isHovered
                         ? image || "/images/projects/Project.gif"
@@ -187,7 +187,7 @@ function Card({
             transition-shadow duration-300"
           >
             <div className="flex flex-col lg:grid-rows-2 gap-6 lg:gap-5 w-full">
-              <h1 className="text-2xl pl-1 sm:text-3xl lg:text-[2rem] xl:text-[2.2rem] leading-snug lg:leading-relaxed">
+              <h1 className="text-2xl pl-1 sm:text-3xl lg:text-[2.2rem] xl:text-[2.2rem] leading-snug lg:leading-relaxed">
                 <span className="satoshi1 font-bold tracking-tight">
                   {title ? title : "Title"}
                 </span>
@@ -196,7 +196,7 @@ function Card({
                 </span>
               </h1>
               <div
-                className="relative flex items-center justify-center w-full aspect-[4/3] lg:aspect-auto lg:h-[380px] xl:h-[400px] rounded-2xl lg:rounded-3xl overflow-hidden order-1 lg:order-2"
+                className="relative flex items-center justify-center w-full aspect-[4/3] lg:aspect-auto lg:h-[400px] xl:h-[400px] rounded-2xl lg:rounded-3xl overflow-hidden order-1 lg:order-2"
                 style={{
                   background: `linear-gradient(to top, ${gradientStart || "#64319e"
                     }, ${gradientEnd || "#361b62"})`,
@@ -221,7 +221,7 @@ function Card({
                     width={450}
                     height={440}
                     alt="project"
-                    className="rounded-xl mt-10 w-[90%] sm:w-[85%] lg:w-auto max-w-full h-auto max-h-[90%] object-contain drop-shadow-2xl scale-105"
+                    className="rounded-xl mt-10 w-[85%] sm:w-[80%] lg:w-[85%] xl:w-[80%] 2xl:w-auto max-w-full h-auto max-h-[85%] 2xl:max-h-[90%] object-contain drop-shadow-2xl scale-100 xl:scale-110 2xl:scale-105"
                     src={image ? image : "/images/projects/interviewD.jpg"}
                   />
                 </motion.div>
