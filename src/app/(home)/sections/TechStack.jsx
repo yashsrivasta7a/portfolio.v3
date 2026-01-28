@@ -3,8 +3,8 @@ import { motion } from "framer-motion";
 
 export default function TechStack() {
   const skills = [
-    "React.js",
     "Next.js",
+    "React.js",
     "TypeScript",
     "Node.js",
     "Adobe XD",
@@ -14,6 +14,7 @@ export default function TechStack() {
     "PostgreSQL",
     "MongoDB",
     "Docker",
+    ""
   ];
 
   const containerVariants = {

@@ -8,7 +8,7 @@ import { motion } from "framer-motion";
 export default function Internship() {
   const data = [
     {
-      title: "2026",
+      title: "Early 2026",
       content: (
         <div>
           <p className="mb-8 text-xs font-normal text-neutral-800 md:text-sm dark:text-neutral-200"></p>

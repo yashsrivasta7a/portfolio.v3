@@ -130,8 +130,8 @@ function Card({
                     width={250}
                     height={50}
                     alt="project"
-                    className="rounded-xl scale-150 w-[95%] sm:w-[80%] lg:w-auto max-w-full 
-                    h-auto max-h-[90%] object-contain drop-shadow-2xl"
+                    className="w-[95%] sm:w-[80%] lg:w-[100%] max-w-full 
+                    h-auto max-h-[90%] object-contain drop-shadow-2xl rounded-xl scale-150"
                     src={
                       isHovered
                         ? image || "/images/projects/Project.gif"
