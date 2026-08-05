@@ -37,7 +37,7 @@ export const Timeline = ({ data }) => {
               <div className="h-10 absolute left-3 md:left-3 w-10 rounded-full bg-white/90 border border-gray-200 shadow-sm flex items-center justify-center">
                 <div className="h-3.5 w-3.5 rounded-full bg-gray-800" />
               </div>
-              <h3 className="hidden md:block text-xl md:pl-20 md:text-5xl font-bold satoshi1 text-gray-700">
+              <h3 className="hidden md:block mt-10 text-xl md:pl-20 md:text-5xl font-bold satoshi1 text-gray-700">
                 {item.title}
               </h3>
             </div>

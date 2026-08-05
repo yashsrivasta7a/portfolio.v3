@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "motion/react";
-import React, { useRef, useState } from "react";
+import { motion, AnimatePresence } from "motion/react";
+import React, { useRef, useState, useEffect } from "react";
+import { createPortal } from "react-dom";
 
 function Card({
   title,
@@ -24,8 +25,13 @@ function Card({
   };
 
   const [isHovered, setIsHovered] = useState(false);
+  const [mounted, setMounted] = useState(false);
   const gifRef = useRef(null);
   const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   const childVariants = {
     initial: { opacity: 0.85, scale: 1 },
@@ -45,7 +51,6 @@ function Card({
       transition: { duration: 0.45, ease: "easeInOut" },
     },
   };
-
 
   const textVariants = {
     initial: { opacity: 1, scale: 0.98, y: 80 },
@@ -70,10 +75,31 @@ function Card({
     }
   };
 
+  const handleMouseMove = (e) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
+  };
+
+  const handleMouseEnter = (e) => {
+    setMousePos({ x: e.clientX, y: e.clientY });
+    setIsHovered(true);
+  };
+
+  const handleMouseLeave = () => {
+    setIsHovered(false);
+  };
+
   return (
     <>
       {size === SIZ.SM ? (
-        <a className={`${className} mb-6 block origin-center cursor-none`} href={link}>
+        <a
+          className={`${className} mb-6 block origin-center`}
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMove}
+        >
           <motion.div
             variants={parentVariants}
             initial="initial"
@@ -81,11 +107,6 @@ function Card({
             whileHover="hover"
             whileTap={{ scale: 0.98 }}
             viewport={{ once: true, margin: "-50px" }}
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
-            onMouseMove={(e) =>
-              setMousePos({ x: e.clientX, y: e.clientY })
-            }
             className="flex rounded-2xl sm:rounded-3xl lg:rounded-3xl bg-white 
             items-center justify-center p-5 sm:p-8 lg:p-6 w-full 
             shadow-[0_2px_8px_rgba(0,0,0,0.08),0_12px_24px_rgba(0,0,0,0.06)] 
@@ -145,34 +166,43 @@ function Card({
             </div>
           </motion.div>
 
-          {isHovered && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.15, ease: "circInOut" }}
-              className="hidden md:flex fixed z-[9999] 
-              bg-gray-700 backdrop-blur-xl 
-              text-white text-xs font-semibold 
-              px-2 py-2 rounded-lg shadow-2xl pointer-events-none"
-              style={{
-                top: mousePos.y + 20,
-                left: mousePos.x + 20,
-              }}
-            >
-              <a
-                href={link || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1"
-              >
-                click to view 👀
-              </a>
-            </motion.div>
-          )}
+          {mounted &&
+            createPortal(
+              <AnimatePresence>
+                {isHovered && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.15, ease: "circInOut" }}
+                    className="hidden md:flex fixed z-[999999] 
+                    bg-gray-800/90 backdrop-blur-xl 
+                    text-white text-xs font-semibold 
+                    px-3 py-2 rounded-full shadow-2xl pointer-events-none border border-white/10 select-none"
+                    style={{
+                      top: mousePos.y + 15,
+                      left: mousePos.x + 15,
+                    }}
+                  >
+                    <span className="flex items-center gap-1.5">
+                      View Project <span className="text-sm">↗</span>
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>,
+              document.body
+            )}
         </a>
       ) : (
-        <a className={`${className} mb-6 block origin-center`} href={link}>
+        <a
+          className={`${className} mb-6 block origin-center`}
+          href={link}
+          target="_blank"
+          rel="noopener noreferrer"
+          onMouseEnter={handleMouseEnter}
+          onMouseLeave={handleMouseLeave}
+          onMouseMove={handleMouseMove}
+        >
           <motion.div
             variants={parentVariants}
             initial="initial"
@@ -180,11 +210,6 @@ function Card({
             whileHover="hover"
             whileTap={{ scale: 0.98 }}
             viewport={{ once: true, margin: "-50px" }}
-            onHoverStart={() => setIsHovered(true)}
-            onHoverEnd={() => setIsHovered(false)}
-            onMouseMove={(e) =>
-              setMousePos({ x: e.clientX, y: e.clientY })
-            }
             className="flex rounded-2xl sm:rounded-3xl lg:rounded-3xl bg-white 
             items-center justify-center p-5 sm:p-8 lg:p-8 w-full 
             shadow-[0_2px_8px_rgba(0,0,0,0.08),0_12px_24px_rgba(0,0,0,0.06)] 
@@ -241,31 +266,32 @@ function Card({
               </div>
             </div>
           </motion.div>
-          {isHovered && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.8 }}
-              transition={{ duration: 0.15, ease: "circInOut" }}
-              className="hidden md:flex fixed z-[9999] 
-              bg-gray-700 backdrop-blur-xl 
-              text-white text-xs font-semibold 
-              px-2 py-2 rounded-lg shadow-2xl pointer-events-none"
-              style={{
-                top: mousePos.y + 20,
-                left: mousePos.x + 20,
-              }}
-            >
-              <a
-                href={link || "#"}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-1"
-              >
-                click to view 👀
-              </a>
-            </motion.div>
-          )}
+          {mounted &&
+            createPortal(
+              <AnimatePresence>
+                {isHovered && (
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.8 }}
+                    animate={{ opacity: 1, scale: 1 }}
+                    exit={{ opacity: 0, scale: 0.8 }}
+                    transition={{ duration: 0.15, ease: "circInOut" }}
+                    className="hidden md:flex fixed z-[999999] 
+                    bg-gray-800/90 backdrop-blur-xl 
+                    text-white text-xs font-semibold 
+                    px-3 py-2 rounded-full shadow-2xl pointer-events-none border border-white/10 select-none"
+                    style={{
+                      top: mousePos.y + 15,
+                      left: mousePos.x + 15,
+                    }}
+                  >
+                    <span className="flex items-center gap-1.5">
+                      View Project <span className="text-sm">↗</span>
+                    </span>
+                  </motion.div>
+                )}
+              </AnimatePresence>,
+              document.body
+            )}
         </a>
       )}
     </>
