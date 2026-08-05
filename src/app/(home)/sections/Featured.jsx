@@ -1,15 +1,36 @@
 "use client";
 import React from "react";
 import Card from "@/components/Card.jsx";
+import { motion } from "framer-motion";
 
 export default function Featured() {
+  const containerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.2, delayChildren: 0.3 },
+    }
+  };
+
   return (
     <div>
-      <div className="satoshi5 text-2xl lg:text-3xl mt-10 lg:tracking-widest text-gray-700 flex justify-center mb-6">
+      <motion.div
+        initial={{ opacity: 0, y: -20 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, ease: "easeOut" }}
+        viewport={{ once: true }}
+        className="satoshi5 text-2xl lg:text-3xl mt-10 lg:tracking-widest text-gray-700 flex justify-center mb-6"
+      >
         FEATURED PROJECTS
-      </div>
+      </motion.div>
       {/* <div className="grid md:grid-cols-2 gap-10 mx-10 md:mx-32"></div> */}
-      <div className="md:grid md:grid-cols-2 gap-10 mx-10 md:mx-40 mb-40">
+      <motion.div
+        variants={containerVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: true, margin: "-100px" }}
+        className="md:grid md:grid-cols-2 gap-6 lg:gap-10 max-w-[1400px] mx-auto px-6 md:px-12 lg:px-20 mb-40 w-full"
+      >
         <Card
           size="sm"
           link="https://interviewd.vercel.app/"
@@ -43,7 +64,7 @@ export default function Featured() {
           textColor="#123d95"
           gradientEnd="#123d95"
           gradientStart="#061b52"
-          content="A sleek, conversion-focused website designed to highlight AdQuora’s marketing expertise, service offerings, and client success metrics."
+          content="A sleek, conversion-focused website designed to highlight AdQuora's marketing expertise, service offerings, and client success metrics."
         />
         <Card
           size="lg"
@@ -87,17 +108,17 @@ export default function Featured() {
         <Card
           size="lg"
           link="https://flow4life.vercel.app/"
-          title="Life-Saving Connections, Powered"
+          title="Life-Saving Connections, "
           shadowTo="#7b2222"
           shadowFrom="#7b2222"
           image="/images/projects/flow4life.png"
-          title2="by Tech"
+          title2="Powered by Tech"
           textColor="#ef4444"
           gradientEnd="#7b2222"
           gradientStart="#ef4444"
           content="A seamless platform that enables users to request blood, find nearby donors, chat in real time, and stay updated with instant notifications."
         />
-      </div>
+      </motion.div>
     </div>
   );
 }

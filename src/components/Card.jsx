@@ -152,17 +152,22 @@ function Card({
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.15, ease: "circInOut" }}
               className="hidden md:flex fixed z-[9999] 
-              bg-gray-800/90 backdrop-blur-xl 
+              bg-gray-700 backdrop-blur-xl 
               text-white text-xs font-semibold 
-              px-3 py-2 rounded-full shadow-2xl pointer-events-none border border-white/10"
+              px-2 py-2 rounded-lg shadow-2xl pointer-events-none"
               style={{
                 top: mousePos.y + 20,
                 left: mousePos.x + 20,
               }}
             >
-              <span className="flex items-center gap-1.5">
-                View Project <span className="text-lg">↗</span>
-              </span>
+              <a
+                href={link || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1"
+              >
+                click to view 👀
+              </a>
             </motion.div>
           )}
         </a>
@@ -186,7 +191,7 @@ function Card({
             hover:shadow-[0_20px_40px_rgba(0,0,0,0.12)] 
             transition-shadow duration-300"
           >
-            <div className="flex flex-col lg:grid-rows-2 gap-6 lg:gap-5 w-full">
+            <div className="flex flex-col h-full gap-6 lg:gap-5 w-full justify-between">
               <h1 className="text-2xl pl-1 sm:text-3xl lg:text-[2.2rem] xl:text-[2.2rem] leading-snug lg:leading-relaxed">
                 <span className="satoshi1 font-bold tracking-tight">
                   {title ? title : "Title"}
@@ -243,17 +248,22 @@ function Card({
               exit={{ opacity: 0, scale: 0.8 }}
               transition={{ duration: 0.15, ease: "circInOut" }}
               className="hidden md:flex fixed z-[9999] 
-              bg-gray-800/90 backdrop-blur-xl 
+              bg-gray-700 backdrop-blur-xl 
               text-white text-xs font-semibold 
-              px-3 py-2 rounded-full shadow-2xl pointer-events-none border border-white/10"
+              px-2 py-2 rounded-lg shadow-2xl pointer-events-none"
               style={{
                 top: mousePos.y + 20,
                 left: mousePos.x + 20,
               }}
             >
-              <span className="flex items-center gap-1.5">
-                View Project <span className="text-lg">↗</span>
-              </span>
+              <a
+                href={link || "#"}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-1"
+              >
+                click to view 👀
+              </a>
             </motion.div>
           )}
         </a>

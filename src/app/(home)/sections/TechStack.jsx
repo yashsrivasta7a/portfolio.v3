@@ -30,16 +30,20 @@ export default function TechStack() {
 
   const itemVariants = {
     hidden: { opacity: 0, y: 20, scale: 0.8 },
-    visible: {
+    visible: (custom) => ({
       opacity: 1,
-      y: 0,
+      y: [0, -10, 0],
       scale: 1,
       transition: {
-        type: "spring",
-        stiffness: 100,
-        damping: 10,
+        y: {
+          duration: 3 + custom * 0.5,
+          repeat: Infinity,
+          ease: "easeInOut",
+        },
+        opacity: { duration: 0.5 },
+        scale: { duration: 0.5 }
       },
-    },
+    }),
   };
 
   return (
@@ -64,6 +68,7 @@ export default function TechStack() {
         {skills.map((skill, idx) => (
           <motion.span
             key={idx}
+            custom={idx % 4}
             variants={itemVariants}
             whileHover={{
               scale: 1.05,

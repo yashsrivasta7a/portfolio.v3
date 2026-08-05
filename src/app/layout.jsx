@@ -79,8 +79,8 @@ export default function RootLayout({ children }) {
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f8f7f4] selection:bg-orange-200`}
       >
         <SmoothScroll>
-          <div className="fixed top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-orange-200/20 rounded-full blur-[120px] pointer-events-none z-0" />
-          <div className="fixed bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-blue-200/20 rounded-full blur-[120px] pointer-events-none z-0" />
+          <div className="fixed top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-orange-200/20 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow" />
+          <div className="fixed bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-blue-200/20 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow" style={{ animationDelay: "7.5s" }} />
           <div className="relative z-1000 ">
             <NavbarWrapper />
           </div>

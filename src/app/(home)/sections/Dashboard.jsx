@@ -1,10 +1,21 @@
 "use client";
 
 import Image from "next/image";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import MouseIcon from "@/components/ui/mouse";
+import { useRef } from "react";
 
 export default function Dashboard() {
+  const containerRef = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end start"],
+  });
+  
+  const yImage = useTransform(scrollYProgress, [0, 1], [0, 200]);
+  const yText = useTransform(scrollYProgress, [0, 1], [0, 100]);
+  const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
   const parentVariants = {
     hidden: { opacity: 0, scale: 0.85, filter: "blur(20px)" },
     visible: {
@@ -40,12 +51,31 @@ export default function Dashboard() {
     },
   };
 
+  const textContainerVariants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: { staggerChildren: 0.05, delayChildren: 0.8 },
+    },
+  };
+  
+  const charVariants = {
+    hidden: { opacity: 0, y: 50, rotateX: -90 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      transition: { type: "spring", stiffness: 100, damping: 10 },
+    },
+  };
+
   return (
-    <div className="min-h-auto pb-10 pt-10 z-99">
+    <div ref={containerRef} className="min-h-auto pb-10 pt-10 z-99 overflow-hidden">
       {/* <NavbarWrapper /> */}
 
-      <div className="flex flex-col justify-center items-center px-4">
+      <motion.div style={{ opacity }} className="flex flex-col justify-center items-center px-4">
         <motion.div
+          style={{ y: yImage }}
           variants={parentVariants}
           initial="hidden"
           animate="visible"
@@ -117,16 +147,32 @@ export default function Dashboard() {
         </motion.div>
 
         <motion.div
+          style={{ y: yText }}
           className="text-center mt-8 md:mt-6 text-gray-700"
-          initial={{ opacity: 0, scale: 0.85, filter: "blur(10px)" }}
-          animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-          transition={{ duration: 0.5, ease: "easeInOut" }}
+          variants={textContainerVariants}
+          initial="hidden"
+          animate="visible"
         >
-          <h1 className="satoshi2 tracking-[0.06em] text-2xl sm:text-3xl md:text-5xl font-bold">SOFTWARE</h1>
-          <h1 className="satoshi2 tracking-[0.01em] text-2xl sm:text-3xl md:text-5xl font-bold">DEVELOPER</h1>
-          <h2 className="satoshi3 ">Engineering efficiency, crafting experiences.</h2>
+          <h1 className="satoshi2 tracking-[0.06em] text-2xl sm:text-3xl md:text-5xl font-bold flex justify-center gap-[2px]">
+            {"SOFTWARE".split("").map((char, index) => (
+              <motion.span key={index} variants={charVariants}>{char}</motion.span>
+            ))}
+          </h1>
+          <h1 className="satoshi2 tracking-[0.01em] text-2xl sm:text-3xl md:text-5xl font-bold flex justify-center gap-[2px]">
+             {"DEVELOPER".split("").map((char, index) => (
+              <motion.span key={index} variants={charVariants}>{char}</motion.span>
+            ))}
+          </h1>
+          <motion.h2 
+            initial={{ opacity: 0, filter: "blur(5px)" }}
+            animate={{ opacity: 1, filter: "blur(0px)" }}
+            transition={{ delay: 1.5, duration: 1 }}
+            className="satoshi3 mt-2"
+          >
+            Engineering efficiency, crafting experiences.
+          </motion.h2>
         </motion.div>
-      </div>
+      </motion.div>
     </div>
   );
 }
