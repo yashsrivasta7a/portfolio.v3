@@ -1,4 +1,5 @@
 import Link from "next/link";
+import HighlightToggle from "./HighlightToggle";
 import Preloader from "./Preloader";
 import PrintButton from "./PrintButton";
 import "./me.css";
@@ -175,6 +176,7 @@ export default function MePage() {
   return (
     <main className="me">
       <Preloader />
+      <HighlightToggle />
 
       <header className="me-head">
         <h1>
@@ -183,8 +185,7 @@ export default function MePage() {
         {/* One line, not a paragraph. Whoever lands here wants to know what you
             do and where — everything below says the rest better than prose. */}
         <p className="me-standfirst">
-          I build the whole thing: the screen, the server, and the awkward bits
-          in between.
+          Full-stack engineer. Screen to server.
         </p>
         <ul className="me-links">
           {LINKS.map((l) => (
@@ -313,7 +314,7 @@ export default function MePage() {
       </section>
 
       <footer className="me-foot">
-        <span>Take it with you</span>
+        <span>Prefer the PDF?</span>
         <div>
           <PrintButton />
           <Link href="/">Portfolio</Link>

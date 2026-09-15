@@ -49,6 +49,10 @@
 
   position: relative;
   min-height: 100vh;
+  /* Contains the section hover bleed below. `clip` rather than `hidden`
+     because `hidden` would make this a scroll container and break the sticky
+     and fixed layers inside it. */
+  overflow-x: clip;
   padding: 8.5rem 1.5rem 5rem;
   color: var(--ink);
   font-family: "satoshi", ui-sans-serif, system-ui, sans-serif;
@@ -305,9 +309,9 @@
 }
 
 /* The detail is prose, so it drops the uppercase and wide tracking it would
-   otherwise inherit from the label above it. */
+   otherwise inherit from the label above it. Inline, so the dates that follow
+   sit on the same line rather than dropping beneath. */
 .me-edu-detail b {
-  display: block;
   font-size: var(--t-sm);
   font-weight: var(--w-mid);
   line-height: 1.35;
@@ -316,9 +320,9 @@
   color: var(--ink-2);
 }
 
+/* Inline, so the dates read as a continuation of the institution rather than a
+   detached line under it. */
 .me-edu-detail i {
-  display: block;
-  margin-top: 0.3rem;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: var(--t-xs);
   font-style: normal;
@@ -326,6 +330,12 @@
   text-transform: none;
   letter-spacing: normal;
   color: var(--ink-3);
+  white-space: nowrap;
+}
+
+.me-edu-detail i::before {
+  content: "  ";
+  white-space: pre;
 }
 
 .me-edu:hover .me-edu-detail,
@@ -338,9 +348,78 @@
    Rhythm varies rather than repeating: a uniform gap everywhere reads as
    generated, and the eye stops using it to navigate. */
 
+/*
+ * Hovering a section inverts it.
+ *
+ * The page's ground is a fixed layer behind everything, so a section cannot
+ * simply "turn white" — it has to paint its own. `::before` does that, bled
+ * out past the content measure with a negative inline inset so the white
+ * reaches the viewport edge rather than stopping at the text column, and sat
+ * behind the content with a negative z-index.
+ *
+ * The five colour tokens are then redefined inside the hovered section. Every
+ * rule on the page reads from those, so the type, the rules and the markers
+ * all re-colour themselves — nothing needs a hover variant of its own.
+ */
 .me section {
+  position: relative;
   padding: 3.25rem 0;
   border-top: 1px solid var(--rule);
+  transition: color 0.45s var(--ease);
+}
+
+/*
+ * A flat inset rather than one computed from `100vw`.
+ *
+ * `100vw` counts the scrollbar gutter but the layout does not, so a bleed
+ * derived from it overshoots by exactly the scrollbar width — 15px of
+ * horizontal overflow at 1440 and above. A fixed 50vw inset is always wider
+ * than it needs to be, and `overflow-x: clip` on `.me` trims the excess.
+ */
+.me section::before {
+  content: "";
+  position: absolute;
+  inset: 0 -50vw;
+  z-index: -1;
+  background: #f4f2ee;
+  opacity: 0;
+  transition: opacity 0.45s var(--ease);
+}
+
+/*
+ * Gated on the toggle in the footer.
+ *
+ * `:not([data-highlight="off"])` rather than `[data-highlight="on"]` so the
+ * default is on before the attribute exists — the switch sets it from an
+ * effect, and keying on the positive would leave the feature dead for the
+ * first paint and then pop in.
+ */
+.me:not([data-highlight="off"]) section:hover::before {
+  opacity: 1;
+}
+
+.me:not([data-highlight="off"]) section:hover {
+  --ink: #0d0d10;
+  --ink-2: #3f3d45;
+  --ink-3: #75727d;
+  --rule: rgba(13, 13, 16, 0.16);
+
+  color: var(--ink);
+}
+
+/* Anything that hardcoded a colour rather than reading a token needs telling
+   explicitly — these are the only three on the page. */
+.me:not([data-highlight="off"]) section:hover .me-section-title,
+.me:not([data-highlight="off"]) section:hover h3,
+.me:not([data-highlight="off"]) section:hover .me-meta a {
+  color: var(--ink);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .me section,
+  .me section::before {
+    transition: none;
+  }
 }
 
 .me-row {
@@ -616,6 +695,77 @@
   background: var(--ink-3);
 }
 
+/* ── Highlight toggle ── */
+
+/*
+ * Pinned to the top right, out of the reading column entirely.
+ *
+ * `position: absolute` against `.me` rather than `fixed`, so it scrolls away
+ * with the header instead of following the reader down the page — it is a
+ * preference you set once, not a control you keep reaching for.
+ */
+.me-toggle {
+  position: absolute;
+  top: 2.5rem;
+  right: 1.5rem;
+  z-index: 3;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: inherit;
+  font-size: var(--t-2xs);
+  font-weight: var(--w-mid);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  transition: color 0.3s var(--ease);
+}
+
+.me-toggle:hover,
+.me-toggle[aria-checked="true"] {
+  color: var(--ink);
+}
+
+.me-toggle-track {
+  display: block;
+  width: 1.65rem;
+  height: 0.85rem;
+  padding: 2px;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  transition:
+    border-color 0.3s var(--ease),
+    background 0.3s var(--ease);
+}
+
+.me-toggle[aria-checked="true"] .me-toggle-track {
+  border-color: currentColor;
+}
+
+/* The thumb slides rather than appearing — the one place on this page where a
+   moving part is the whole point, since it is reporting a state. */
+.me-toggle-thumb {
+  display: block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 999px;
+  background: currentColor;
+  opacity: 0.45;
+  translate: 0;
+  transition:
+    translate 0.32s var(--ease),
+    opacity 0.32s var(--ease);
+}
+
+.me-toggle[aria-checked="true"] .me-toggle-thumb {
+  opacity: 1;
+  translate: 0.75rem;
+}
+
 /* ── Preloader ── */
 
 .me-pre {
@@ -776,6 +926,7 @@
   }
 
   .me-details summary .me-section-title::after,
+  .me-toggle,
   .me-foot button,
   .me-foot span {
     display: none;
@@ -822,6 +973,13 @@
   .me {
     padding-left: 3rem;
     padding-right: 3rem;
+  }
+
+  /* Matches the page gutter, so it lines up with the content edge rather than
+     floating closer to the viewport than anything else on the page. */
+  .me-toggle {
+    top: 3rem;
+    right: 3rem;
   }
 
   .me section {
