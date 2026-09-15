@@ -288,13 +288,20 @@
   transform: scaleX(1);
 }
 
+/* The institution takes the space it needs and the dates are pushed to the far
+   edge, so the two read as a row with a gap rather than a sentence that
+   happens to end in numbers. */
 .me-edu-detail {
   position: absolute;
   top: calc(100% + 0.65rem);
   left: 0;
   z-index: 2;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
   width: max-content;
-  max-width: 19rem;
+  max-width: 26rem;
   font-size: var(--t-xs);
   line-height: 1.5;
   color: var(--ink-2);
@@ -320,9 +327,10 @@
   color: var(--ink-2);
 }
 
-/* Inline, so the dates read as a continuation of the institution rather than a
-   detached line under it. */
+/* Pinned to the right edge by the flex above — `margin-left: auto` would do it
+   too, but `space-between` already handles the two-child case. */
 .me-edu-detail i {
+  flex-shrink: 0;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
   font-size: var(--t-xs);
   font-style: normal;
@@ -331,11 +339,6 @@
   letter-spacing: normal;
   color: var(--ink-3);
   white-space: nowrap;
-}
-
-.me-edu-detail i::before {
-  content: "  ";
-  white-space: pre;
 }
 
 .me-edu:hover .me-edu-detail,
