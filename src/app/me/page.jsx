@@ -1,6 +1,6 @@
 import Link from "next/link";
-import HighlightToggle from "./HighlightToggle";
 import Preloader from "./Preloader";
+import Switch from "./Switch";
 import "./me.css";
 
 export const metadata = {
@@ -185,7 +185,30 @@ export default function MePage() {
   return (
     <main className="me">
       <Preloader />
-      <HighlightToggle />
+
+      {/*
+        Behind everything, off by default.
+
+        `preload="none"` so the 2.2MB never loads for anyone who leaves the
+        switch alone — which is everyone on first visit. The Glow switch is
+        what fetches it. Muted and playsInline are both required for autoplay
+        to be allowed at all.
+      */}
+      <video
+        className="me-glow"
+        src="/loopbg.mp4"
+        autoPlay
+        loop
+        muted
+        playsInline
+        preload="none"
+        aria-hidden
+      />
+
+      <div className="me-switches">
+        <Switch label="Glow" attr="glow" storageKey="me_glow" defaultOn={false} />
+        <Switch label="Highlight" attr="highlight" storageKey="me_highlight" />
+      </div>
 
       <header className="me-head">
         <h1>
@@ -231,8 +254,8 @@ export default function MePage() {
           <summary>
             <h2 className="me-section-title">Experience</h2>
             <span className="me-summary-line">
-              Six of them since 2024 — agencies, a startup, an industrial IoT
-              company and a Big Four firm.
+              Six internships since 2024. Agencies, a startup, a factory
+              automation company, and KPMG.
             </span>
           </summary>
 
@@ -270,8 +293,7 @@ export default function MePage() {
           <summary>
             <h2 className="me-section-title">Selected work</h2>
             <span className="me-summary-line">
-              Eight things I built because I wanted them to exist. Most are
-              live, most are open source.
+              Eight projects. All of them live, most on GitHub.
             </span>
           </summary>
 

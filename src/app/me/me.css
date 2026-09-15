@@ -79,6 +79,33 @@
 }
 
 /*
+ * The glow.
+ *
+ * Sits at the same depth as the grain, so the texture reads across it exactly
+ * as it does across the rest of the page. Cropped with `object-fit: cover` so
+ * the loop fills any viewport without letterboxing.
+ *
+ * Off by default, and `preload="none"` in the markup means the file is not
+ * fetched until the switch asks for it — nobody pays 2.2MB for a background
+ * they did not turn on.
+ */
+.me-glow {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.9s var(--ease);
+}
+
+.me[data-glow="on"] .me-glow {
+  opacity: 0.55;
+}
+
+/*
  * Film grain.
  *
  * Generated rather than loaded: inline SVG turbulence costs no request and no
@@ -174,7 +201,6 @@
 
 .me-standfirst {
   margin-top: 2rem !important;
-  max-width: 30rem;
   font-size: var(--t-base);
   color: var(--ink-2);
 }
@@ -758,23 +784,41 @@
 }
 
 
-/* ── Highlight toggle ── */
+/* ── Switches ── */
 
 /*
  * Pinned to the top right, out of the reading column entirely.
  *
- * `position: absolute` against `.me` rather than `fixed`, so it scrolls away
- * with the header instead of following the reader down the page — it is a
- * preference you set once, not a control you keep reaching for.
+ * `position: absolute` against `.me` rather than `fixed`, so they scroll away
+ * with the header instead of following the reader down the page — these are
+ * preferences you set once, not controls you keep reaching for.
+ *
+ * The container owns the anchoring so the switches stack inside it; leaving it
+ * on the buttons would put both in the same corner, on top of each other.
  */
-.me-toggle {
+.me-switches {
   position: absolute;
   top: 2.5rem;
   right: 1.5rem;
   z-index: 3;
+  display: flex;
+  flex-direction: column;
+  /* `stretch`, not `flex-end` — the buttons are `width: 100%`, and with
+     `flex-end` the column shrink-wraps each one to its own label, so the two
+     tracks would sit at different x positions. */
+  align-items: stretch;
+  gap: 0.65rem;
+}
+
+/* Both switches share a width so the tracks line up in a column — otherwise
+   "Glow" and "Highlight" put their thumbs at different x positions and the
+   pair reads as two unrelated controls. */
+.me-toggle {
   display: inline-flex;
   align-items: center;
+  justify-content: flex-end;
   gap: 0.5rem;
+  width: 100%;
   font-family: inherit;
   font-size: var(--t-2xs);
   font-weight: var(--w-mid);
@@ -1010,9 +1054,9 @@
     padding-right: 3rem;
   }
 
-  /* Matches the page gutter, so it lines up with the content edge rather than
+  /* Matches the page gutter, so they line up with the content edge rather than
      floating closer to the viewport than anything else on the page. */
-  .me-toggle {
+  .me-switches {
     top: 3rem;
     right: 3rem;
   }
