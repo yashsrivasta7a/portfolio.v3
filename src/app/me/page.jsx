@@ -194,7 +194,8 @@ export default function MePage() {
         {/* One line, not a paragraph. Whoever lands here wants to know what you
             do and where — everything below says the rest better than prose. */}
         <p className="me-standfirst">
-          Full-stack engineer. Screen to server.
+          I build the whole thing: the screen, the server, and the awkward bits
+          in between.
         </p>
         <ul className="me-links">
           {LINKS.map((l) => (
