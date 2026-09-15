@@ -74,7 +74,8 @@
   content: "";
   position: fixed;
   inset: 0;
-  z-index: -2;
+  /* Deepest layer: the video sits on top of this at -2, the grain at -1. */
+  z-index: -3;
   background: var(--paper);
 }
 
@@ -89,20 +90,25 @@
  * fetched until the switch asks for it — nobody pays 2.2MB for a background
  * they did not turn on.
  */
+/*
+ * Below the grain, above the black ground — so it *is* the background rather
+ * than a film laid over one. `.me::after` paints black at -3, this sits at -2,
+ * and the grain reads across it at -1.
+ */
 .me-glow {
   position: fixed;
   inset: 0;
-  z-index: -1;
+  z-index: -2;
   width: 100%;
   height: 100%;
   object-fit: cover;
   pointer-events: none;
   opacity: 0;
-  transition: opacity 0.9s var(--ease);
+  transition: opacity 1.1s var(--ease);
 }
 
 .me[data-glow="on"] .me-glow {
-  opacity: 0.55;
+  opacity: 1;
 }
 
 /*
