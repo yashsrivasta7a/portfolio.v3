@@ -1,4 +1,5 @@
 import Link from "next/link";
+import GlowMount from "./GlowMount";
 import Preloader from "./Preloader";
 import Switch from "./Switch";
 import "./me.css";
@@ -186,24 +187,8 @@ export default function MePage() {
     <main className="me">
       <Preloader />
 
-      {/*
-        Behind everything, off by default.
-
-        `preload="none"` so the 2.2MB never loads for anyone who leaves the
-        switch alone — which is everyone on first visit. The Glow switch is
-        what fetches it. Muted and playsInline are both required for autoplay
-        to be allowed at all.
-      */}
-      <video
-        className="me-glow"
-        src="/loopbg.mp4"
-        autoPlay
-        loop
-        muted
-        playsInline
-        preload="none"
-        aria-hidden
-      />
+      {/* Mounted only while the switch is on — see GlowMount. */}
+      <GlowMount />
 
       <div className="me-switches">
         <Switch label="Glow" attr="glow" storageKey="me_glow" defaultOn={false} />

@@ -49,10 +49,15 @@
 
   position: relative;
   min-height: 100vh;
-  /* Contains the section hover bleed below. `clip` rather than `hidden`
-     because `hidden` would make this a scroll container and break the sticky
-     and fixed layers inside it. */
-  overflow-x: clip;
+  /*
+   * No `overflow` here, on purpose.
+   *
+   * Any `overflow` other than `visible` makes an element a containing block
+   * for its `position: fixed` descendants — which anchored the glow, the grain
+   * and the black ground to this element instead of the viewport, so the whole
+   * background scrolled with the page like an enormous section. The section
+   * hover bleed is clipped by the sections themselves instead.
+   */
   padding: 8.5rem 1.5rem 5rem;
   color: var(--ink);
   font-family: "satoshi", ui-sans-serif, system-ui, sans-serif;
@@ -80,15 +85,11 @@
 }
 
 /*
- * The glow.
+ * The glow — a WebGL canvas, mounted only while the switch is on.
  *
- * Sits at the same depth as the grain, so the texture reads across it exactly
- * as it does across the rest of the page. Cropped with `object-fit: cover` so
- * the loop fills any viewport without letterboxing.
- *
- * Off by default, and `preload="none"` in the markup means the file is not
- * fetched until the switch asks for it — nobody pays 2.2MB for a background
- * they did not turn on.
+ * Fixed and full-bleed at -2: the black ground sits behind it at -3 and the
+ * grain reads across it at -1, so it is the page's background rather than a
+ * layer sitting on top of one.
  */
 /*
  * Below the grain, above the black ground — so it *is* the background rather
@@ -101,14 +102,18 @@
   z-index: -2;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  display: block;
   pointer-events: none;
+  /* Fades up once the canvas has had a frame to draw, so the switch does not
+     reveal a flash of undrawn black. */
   opacity: 0;
-  transition: opacity 1.1s var(--ease);
+  animation: me-glow-in 1.1s var(--ease) 0.15s forwards;
 }
 
-.me[data-glow="on"] .me-glow {
-  opacity: 1;
+@keyframes me-glow-in {
+  to {
+    opacity: 1;
+  }
 }
 
 /*
@@ -131,7 +136,18 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
-.me > * {
+/*
+ * Content sits in the measure. The layers do not.
+ *
+ * This rule is declared after `.me-glow` and matches at the same specificity,
+ * so without the exclusions it won the cascade and forced the video to
+ * `position: relative; z-index: 1` inside a 60rem column — which is precisely
+ * why it rendered as an enormous centred section instead of a fixed
+ * background. The switches are excluded for the same reason: they are
+ * absolutely positioned in the corner and have no business being centred or
+ * capped.
+ */
+.me > *:not(.me-glow):not(.me-switches) {
   position: relative;
   z-index: 1;
   max-width: var(--measure);
@@ -406,6 +422,9 @@
  */
 .me section {
   position: relative;
+  /* Each section clips its own hover bleed. This used to live on `.me`, but
+     an overflow value there traps every fixed layer on the page. */
+  overflow-x: clip;
   padding: 3.25rem 0;
   border-top: 1px solid var(--rule);
   transition: color 0.45s var(--ease);
