@@ -33,11 +33,11 @@ export const metadata = {
   ],
   authors: [{ name: "Yash Srivastava" }],
   creator: "Yash Srivastava",
-  metadataBase: new URL("https://www.yashsrivasta7a.tech"),
+  metadataBase: new URL("https://www.yashsrivasta7a.in"),
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: "https://www.yashsrivasta7a.tech",
+    url: "https://www.yashsrivasta7a.in",
     siteName: "Yash Srivastava Portfolio",
     title: "Yash Srivastava | Full Stack Developer & AI Enthusiast",
     description:
