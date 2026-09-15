@@ -1,0 +1,475 @@
+/*
+ * /me — scoped entirely to `.me`, so nothing here can leak into the rest of
+ * the portfolio. One stylesheet instead of several hundred utility classes in
+ * the markup: the page has maybe eight repeating shapes, and naming them is
+ * shorter than re-describing them at every use.
+ *
+ * Dark only. The rest of the site is light, so this page paints its own ground
+ * across the full viewport rather than sitting as a dark panel inside a cream
+ * document.
+ */
+
+.me {
+  /* Five colours. Everything below is derived from them. */
+  --ink: #ecebef;
+  --ink-2: #9b99a4;
+  --ink-3: #5f5d68;
+  --rule: rgba(236, 235, 239, 0.1);
+  --paper: #0d0d10;
+
+  --measure: 60rem;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+
+  position: relative;
+  min-height: 100vh;
+  padding: 8.5rem 1.5rem 5rem;
+  color: var(--ink);
+  font-family: "satoshi", ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.011em;
+}
+
+/*
+ * The ground.
+ *
+ * A fixed layer rather than a background on `.me` itself: the rest of the site
+ * is light, and this page has to cover the layout's cream body and its fixed
+ * background image edge to edge. Painting it with `width: 100vw` and a
+ * negative margin would work, but `100vw` counts the scrollbar gutter on
+ * Windows and hands you a horizontal scrollbar. A fixed layer never takes part
+ * in layout width, so there is nothing to overflow.
+ */
+.me::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background: var(--paper);
+}
+
+/*
+ * Film grain.
+ *
+ * Generated rather than loaded: inline SVG turbulence costs no request and no
+ * image file, and tiles seamlessly at any viewport. Fixed, so it sits still
+ * while the page scrolls — grain that travels with the content reads as
+ * texture printed on the paper, which is the opposite of what grain is for.
+ * `screen` because multiply would erase it entirely on a dark ground.
+ */
+.me::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.2;
+  mix-blend-mode: screen;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+}
+
+.me > * {
+  position: relative;
+  z-index: 1;
+  max-width: var(--measure);
+  margin-inline: auto;
+}
+
+/* ── Type ── */
+
+.me h1 {
+  margin: 0 0 1.75rem;
+  font-size: clamp(3rem, 11vw, 6.5rem);
+  font-weight: 700;
+  line-height: 0.88;
+  letter-spacing: -0.045em;
+}
+
+.me h1 em {
+  font-weight: 300;
+  font-style: italic;
+  color: var(--ink-3);
+}
+
+.me h3 {
+  margin: 0;
+  font-size: 1.0625rem;
+  font-weight: 700;
+  letter-spacing: -0.016em;
+}
+
+.me p {
+  margin: 0;
+  color: var(--ink-2);
+  line-height: 1.65;
+}
+
+.me a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.me-eyebrow {
+  margin: 0 0 0.75rem !important;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ink-3) !important;
+}
+
+/* ── Header ── */
+
+.me-head {
+  padding-bottom: 4.5rem;
+}
+
+.me-head .me-eyebrow {
+  margin-bottom: 2rem !important;
+}
+
+.me-intro {
+  max-width: 34rem;
+  font-size: 1.0625rem;
+}
+
+.me-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 3rem;
+  margin: 2.75rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.me-links span {
+  display: block;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.5625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+/*
+ * Underlines grow from the left rather than fading in. A border that changes
+ * colour is a state change; one that draws itself is a gesture, and it costs
+ * the same.
+ */
+.me-links a,
+.me-meta a,
+.me-foot a,
+.me-jobs h3 a {
+  position: relative;
+}
+
+.me-links a::after,
+.me-meta a::after,
+.me-foot a::after,
+.me-jobs h3 a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+
+.me-links a:hover::after,
+.me-meta a:hover::after,
+.me-foot a:hover::after,
+.me-jobs h3 a:hover::after {
+  transform: scaleX(1);
+}
+
+.me-links a {
+  font-size: 0.875rem;
+}
+
+/* ── Sections ── */
+
+.me section {
+  padding: 3.75rem 0;
+  border-top: 1px solid var(--rule);
+}
+
+.me-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 2rem;
+  align-items: baseline;
+  justify-content: space-between;
+}
+
+.me-when {
+  flex-shrink: 0;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  color: var(--ink-3);
+}
+
+/* ── Collapsibles ── */
+
+.me-details summary {
+  display: block;
+  cursor: pointer;
+  list-style: none;
+}
+
+.me-details summary::-webkit-details-marker {
+  display: none;
+}
+
+.me-summary-line {
+  display: block;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+  transition: color 0.3s var(--ease);
+}
+
+.me-details summary:hover .me-summary-line {
+  color: var(--ink);
+}
+
+/* The marker lives in CSS so the summary stays one readable sentence. */
+.me-summary-line::after {
+  content: "+";
+  float: right;
+  margin-left: 1rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 1.125rem;
+  line-height: 1;
+  color: var(--ink-3);
+  transition: transform 0.45s var(--ease), color 0.3s var(--ease);
+}
+
+.me-details[open] .me-summary-line::after {
+  transform: rotate(135deg);
+}
+
+.me-details summary:hover .me-summary-line::after {
+  color: var(--ink);
+}
+
+/*
+ * Rows arrive one after another when a section opens, ordered by `--i` from
+ * the markup. Six frames apart is enough to read as a sequence and short
+ * enough that nobody waits for it.
+ */
+@keyframes me-rise {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+.me-details[open] .me-jobs > li,
+.me-details[open] .me-projects > li {
+  animation: me-rise 0.5s var(--ease) backwards;
+  animation-delay: calc(var(--i, 0) * 45ms);
+}
+
+/* ── Experience ── */
+
+.me-jobs {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.me-jobs > li + li {
+  margin-top: 2.25rem;
+  padding-top: 2.25rem;
+  border-top: 1px solid var(--rule);
+}
+
+.me-role {
+  display: block;
+  margin-top: 0.3rem;
+  font-size: 0.8125rem;
+  font-weight: 400;
+  color: var(--ink-3);
+}
+
+.me-jobs ul {
+  margin: 0.9rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.me-jobs ul li {
+  position: relative;
+  margin-top: 0.4rem;
+  padding-left: 1rem;
+  font-size: 0.875rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+}
+
+.me-jobs ul li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.65em;
+  width: 0.4rem;
+  height: 1px;
+  background: var(--ink-3);
+}
+
+/* ── Projects ── */
+
+.me-projects {
+  margin: 2.5rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.me-projects > li {
+  display: grid;
+  grid-template-columns: 2.5rem 1fr;
+  gap: 0 1rem;
+  padding: 1.75rem 0;
+}
+
+.me-projects > li + li {
+  border-top: 1px solid var(--rule);
+}
+
+/* The index shifts a hair toward the title on hover — the only movement in
+   the row, so the eye knows which one it is without anything lighting up. */
+.me-num {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  color: var(--ink-3);
+  padding-top: 0.3rem;
+  transition: transform 0.4s var(--ease), color 0.3s var(--ease);
+}
+
+.me-projects > li:hover .me-num {
+  transform: translateX(3px);
+  color: var(--ink-2);
+}
+
+.me-projects p {
+  margin-top: 0.5rem;
+  font-size: 0.9375rem;
+  max-width: 44rem;
+}
+
+.me-meta {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.4rem 1.25rem;
+  margin-top: 0.9rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.me-meta a {
+  color: var(--ink);
+}
+
+/* ── Skills ── */
+
+.me-skills {
+  margin: 2rem 0 0;
+}
+
+.me-skills > div {
+  display: grid;
+  grid-template-columns: 9rem 1fr;
+  gap: 0 2rem;
+  padding: 0.7rem 0;
+}
+
+.me-skills dt {
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  padding-top: 0.2rem;
+}
+
+.me-skills dd {
+  margin: 0;
+  font-size: 0.9375rem;
+  color: var(--ink-2);
+}
+
+/* ── Awards ── */
+
+.me-awards {
+  margin: 2rem 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.me-awards li {
+  position: relative;
+  padding-left: 1rem;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--ink-2);
+}
+
+.me-awards li + li {
+  margin-top: 0.55rem;
+}
+
+.me-awards li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.7em;
+  width: 0.4rem;
+  height: 1px;
+  background: var(--ink-3);
+}
+
+/* ── Footer ── */
+
+.me-foot {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 2rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: 2.5rem 0 0;
+  border-top: 1px solid var(--rule);
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: 0.6875rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.me-foot div {
+  display: flex;
+  gap: 1.75rem;
+}
+
+.me-foot a {
+  color: var(--ink);
+}
+
+@media (min-width: 768px) {
+  .me {
+    padding-left: 3rem;
+    padding-right: 3rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .me *,
+  .me *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
