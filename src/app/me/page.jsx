@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Preloader from "./Preloader";
+import PrintButton from "./PrintButton";
 import "./me.css";
 
 export const metadata = {
@@ -27,7 +29,7 @@ const LINKS = [
   { label: "Email", href: "mailto:yashsrivasta7a@gmail.com", text: "yashsrivasta7a@gmail.com" },
   { label: "GitHub", href: "https://github.com/yashsrivasta7a", text: "yashsrivasta7a" },
   { label: "LinkedIn", href: "https://linkedin.com/in/yashsrivasta7a", text: "yashsrivasta7a" },
-  { label: "Phone", href: "tel:+919958907375", text: "+91 99589 07375" },
+  { label: "LeetCode", href: "https://leetcode.com/u/yashsrivasta7a", text: "yashsrivasta7a" },
 ];
 
 const EXPERIENCE = [
@@ -172,6 +174,8 @@ const AWARDS = [
 export default function MePage() {
   return (
     <main className="me">
+      <Preloader />
+
       <header className="me-head">
         <h1>
           Yash <em>Srivastava.</em>
@@ -191,19 +195,22 @@ export default function MePage() {
               </a>
             </li>
           ))}
+
+          {/* Education sits in the same row rather than owning a section. It is
+              one fact, and a whole section for one fact reads as padding — the
+              detail is there for anyone who wants it, on hover. */}
+          <li className="me-edu">
+            <span>Education</span>
+            <button type="button" aria-describedby="me-edu-detail">
+              Bachelor of Technology
+            </button>
+            <span className="me-edu-detail" id="me-edu-detail" role="tooltip">
+              <b>Manav Rachna International Institute of Research and Studies</b>
+              <i>Sep 2022 — Jun 2026</i>
+            </span>
+          </li>
         </ul>
       </header>
-
-      <section>
-        <h2 className="me-section-title">Education</h2>
-        <div className="me-row">
-          <div>
-            <h3>Manav Rachna International Institute of Research and Studies</h3>
-            <p>B.Tech, Computer Science Engineering</p>
-          </div>
-          <span className="me-when">Sep 2022 — Jun 2026</span>
-        </div>
-      </section>
 
       {/* Collapsed by default — six roles is a lot of vertical noise for
           someone who came to look at the work. `<details>` does this with no
@@ -306,9 +313,9 @@ export default function MePage() {
       </section>
 
       <footer className="me-foot">
-        <span>Prefer the PDF?</span>
+        <span>Take it with you</span>
         <div>
-          <Link href="/resume">Résumé</Link>
+          <PrintButton />
           <Link href="/">Portfolio</Link>
         </div>
       </footer>

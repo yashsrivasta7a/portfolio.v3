@@ -10,18 +10,8 @@
  */
 
 .me {
-  /*
-   * Give this page the system cursor back.
-   *
-   * The layout's cursor component sets `cursor: none` imperatively on its own
-   * container, which is an ancestor of this page — so it has to be overridden
-   * here rather than simply unset. `!important` because an inline style on the
-   * ancestor is what we are competing with.
-   */
-  cursor: auto !important;
-
   /* Lets `block-size` interpolate to and from `auto`, which is what allows the
-     collapse above to animate rather than snap. */
+     collapse below to animate rather than snap. */
   interpolate-size: allow-keywords;
 
   /* Five colours. Everything below is derived from them. */
@@ -31,6 +21,29 @@
   --rule: rgba(236, 235, 239, 0.1);
   --paper: #000000;
 
+  /*
+   * Five type sizes, on roughly a 1.28 ratio.
+   *
+   * This page had fourteen. Sizes like 0.875 and 0.9375 sat next to each other
+   * doing identical work — a difference nobody can perceive is cost without
+   * signal. Everything now lands on one of these five or it does not ship.
+   */
+  --t-2xs: 0.625rem;  /* labels and eyebrows only */
+  --t-xs: 0.6875rem;  /* data: dates, index */
+  --t-sm: 0.8125rem;  /* supporting detail: roles, header links */
+  --t-base: 0.9375rem; /* body */
+  --t-md: 1.375rem;   /* project titles, job names */
+  --t-lg: clamp(2rem, 5vw, 3rem); /* section headings */
+
+  /*
+   * Satoshi's variable axis is loaded (100–900), so these are real weights and
+   * not snapped to the static cuts. 450 and 550 are where this typeface is at
+   * its best — present without tipping into bold.
+   */
+  --w-body: 450;
+  --w-mid: 550;
+  --w-bold: 700;
+
   --measure: 60rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
@@ -39,6 +52,7 @@
   padding: 8.5rem 1.5rem 5rem;
   color: var(--ink);
   font-family: "satoshi", ui-sans-serif, system-ui, sans-serif;
+  font-weight: var(--w-body);
   letter-spacing: -0.011em;
 }
 
@@ -89,25 +103,43 @@
 
 /* ── Type ── */
 
+/*
+ * The name, large, on one line.
+ *
+ * Satoshi throughout — the same voice as the rest of the page. The contrast
+ * comes from weight, not from a second typeface: 200 at display size is a
+ * different instrument from the 450 the body is set in, thin and wide and
+ * quiet, while still unmistakably the same family. Tracking is pulled in hard
+ * because a face drawn for paragraphs is always too loose once it gets big.
+ *
+ * `clamp` on the viewport keeps it to one line at every width without a media
+ * query — at 10vw the full name fits from 320px up.
+ */
 .me h1 {
-  margin: 0 0 1.75rem;
-  font-size: clamp(3rem, 11vw, 6.5rem);
-  font-weight: 700;
-  line-height: 0.88;
+  margin: 0;
+  /* 8.2vw rather than 10: bold glyphs are materially wider than the hairline
+     this was set at, and the name has to hold one line down to 320px — where
+     `nowrap` would otherwise push a horizontal scrollbar rather than simply
+     look tight, since nothing on this site guards overflow-x. */
+  font-size: clamp(1.75rem, 8.2vw, 6.5rem);
+  font-weight: var(--w-bold);
+  line-height: 1;
   letter-spacing: -0.045em;
+  white-space: nowrap;
 }
 
 .me h1 em {
-  font-weight: 300;
-  font-style: italic;
+  font-weight: var(--w-bold);
+  font-style: normal;
   color: var(--ink-3);
 }
 
 .me h3 {
   margin: 0;
-  font-size: 1.0625rem;
-  font-weight: 700;
-  letter-spacing: -0.016em;
+  font-size: var(--t-md);
+  font-weight: var(--w-mid);
+  line-height: 1.15;
+  letter-spacing: -0.022em;
 }
 
 .me p {
@@ -121,57 +153,60 @@
   text-decoration: none;
 }
 
-/*
- * Section headings.
- *
- * These were 10px mono eyebrows, which meant "Education" and "Experience" were
- * the smallest text on a page they were supposed to be structuring — you had
- * to hunt for the thing telling you where you are. They are headings now, and
- * they read like it.
- */
 .me-section-title {
   margin: 0 0 0.85rem;
-  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
-  font-weight: 700;
+  font-size: var(--t-lg);
+  font-weight: var(--w-bold);
   line-height: 1.05;
-  letter-spacing: -0.032em;
+  letter-spacing: -0.035em;
   color: var(--ink);
 }
 
 /* ── Header ── */
 
 .me-head {
-  padding-bottom: 4.5rem;
+  padding-bottom: 4rem;
 }
 
 .me-standfirst {
-  margin-top: 1.5rem !important;
-  font-size: 1.125rem;
+  margin-top: 2rem !important;
+  max-width: 30rem;
+  font-size: var(--t-base);
   color: var(--ink-2);
+}
+
+/*
+ * Labels are Satoshi at small size with wide tracking, not mono.
+ *
+ * The mono was appearing at six different sizes across this page — when a
+ * secondary typeface is everywhere it stops being a signal. It is now reserved
+ * for data: dates and the project index, the two places where the point is
+ * "this is a value, not prose".
+ */
+.me-links span,
+.me-skills dt {
+  display: block;
+  font-size: var(--t-2xs);
+  font-weight: var(--w-mid);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
 }
 
 .me-links {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.5rem 3rem;
-  margin: 2.75rem 0 0;
+  gap: 0.5rem 2.75rem;
+  margin: 2.25rem 0 0;
   padding: 0;
   list-style: none;
-}
-
-.me-links span {
-  display: block;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.5625rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink-3);
 }
 
 /*
  * Underlines grow from the left rather than fading in. A border that changes
  * colour is a state change; one that draws itself is a gesture, and it costs
- * the same.
+ * the same. This is the page's one hover idiom — everything hoverable uses it,
+ * and nothing else moves.
  */
 .me-links a,
 .me-meta a,
@@ -203,14 +238,108 @@
   transform: scaleX(1);
 }
 
-.me-links a {
-  font-size: 0.875rem;
+.me-links a,
+.me-edu button {
+  font-size: var(--t-sm);
+  color: var(--ink);
 }
 
-/* ── Sections ── */
+/*
+ * Education: one fact, so it lives in the contacts row rather than owning a
+ * section of its own. A button and not a div, because it is focusable — the
+ * detail has to be reachable without a pointer, and `:focus-visible` gets that
+ * for free.
+ */
+.me-edu {
+  position: relative;
+}
+
+.me-edu button {
+  font-family: inherit;
+  font-weight: inherit;
+  letter-spacing: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Same drawn underline as every other interactive thing on the page. */
+.me-edu button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+
+.me-edu:hover button::after,
+.me-edu button:focus-visible::after {
+  transform: scaleX(1);
+}
+
+.me-edu-detail {
+  position: absolute;
+  top: calc(100% + 0.65rem);
+  left: 0;
+  z-index: 2;
+  width: max-content;
+  max-width: 19rem;
+  font-size: var(--t-xs);
+  line-height: 1.5;
+  color: var(--ink-2);
+  text-transform: none;
+  letter-spacing: normal;
+  opacity: 0;
+  translate: 0 -0.25rem;
+  pointer-events: none;
+  transition:
+    opacity 0.32s var(--ease),
+    translate 0.32s var(--ease);
+}
+
+/* The detail is prose, so it drops the uppercase and wide tracking it would
+   otherwise inherit from the label above it. */
+.me-edu-detail b {
+  display: block;
+  font-size: var(--t-sm);
+  font-weight: var(--w-mid);
+  line-height: 1.35;
+  text-transform: none;
+  letter-spacing: -0.01em;
+  color: var(--ink-2);
+}
+
+.me-edu-detail i {
+  display: block;
+  margin-top: 0.3rem;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: var(--t-xs);
+  font-style: normal;
+  font-variant-numeric: tabular-nums;
+  text-transform: none;
+  letter-spacing: normal;
+  color: var(--ink-3);
+}
+
+.me-edu:hover .me-edu-detail,
+.me-edu button:focus-visible ~ .me-edu-detail {
+  opacity: 1;
+  translate: 0 0;
+}
+
+/* ── Sections ──
+   Rhythm varies rather than repeating: a uniform gap everywhere reads as
+   generated, and the eye stops using it to navigate. */
 
 .me section {
-  padding: 3.75rem 0;
+  padding: 3.25rem 0;
   border-top: 1px solid var(--rule);
 }
 
@@ -222,27 +351,20 @@
   justify-content: space-between;
 }
 
+/* Mono, because a date is data. Tabular so columns of them line up. */
 .me-when {
   flex-shrink: 0;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
+  font-size: var(--t-xs);
+  font-variant-numeric: tabular-nums;
   color: var(--ink-3);
 }
 
 /* ── Collapsibles ── */
 
-.me * {
-  cursor: inherit;
-}
-
-/* Interactive things still say so. */
-.me a,
-.me summary {
-  cursor: pointer !important;
-}
-
 .me-details summary {
   display: block;
+  cursor: pointer;
   list-style: none;
 }
 
@@ -253,26 +375,27 @@
 /*
  * Animate the collapse, not just the open.
  *
- * `<details>` natively animates in neither direction — the open stagger below
- * only ever worked because it is a keyframe on the rows, which is why closing
- * looked dead by comparison. Transitioning the content box needs a height to
- * interpolate toward, and `auto` is not one, so `interpolate-size` is what
- * makes this possible at all. Browsers without it simply snap, which is the
- * behaviour everyone already had.
+ * `<details>` natively animates in neither direction — the row stagger below
+ * only ever worked because it is a keyframe, and keyframes play forwards only,
+ * which is why closing used to look dead. Transitioning the content box needs
+ * a height to interpolate toward, and `auto` is not one, so `interpolate-size`
+ * on `.me` is what makes this possible at all. Browsers without it snap, which
+ * is the behaviour everyone already had.
+ *
+ * Closing is deliberately the slower of the two: opening reveals something you
+ * asked for, closing takes it away, and taking something away too fast reads
+ * as a glitch rather than a gesture.
  */
 .me-details::details-content {
   block-size: 0;
   overflow: hidden;
-  /* Closing is the slower of the two on purpose. Opening reveals something you
-     asked for, so it can move; closing takes it away, and taking something
-     away too fast reads as a glitch rather than a gesture. */
   opacity: 0;
   translate: 0 -0.75rem;
   transition:
-    block-size 0.55s var(--ease),
-    opacity 0.35s ease-in,
-    translate 0.45s var(--ease),
-    content-visibility 0.55s allow-discrete;
+    block-size 0.9s var(--ease),
+    opacity 0.55s ease-in,
+    translate 0.7s var(--ease),
+    content-visibility 0.9s allow-discrete;
 }
 
 .me-details[open]::details-content {
@@ -280,22 +403,21 @@
   opacity: 1;
   translate: 0 0;
   transition:
-    block-size 0.75s var(--ease),
-    opacity 0.5s 0.12s ease-out,
-    translate 0.6s 0.06s var(--ease),
-    content-visibility 0.75s allow-discrete;
+    block-size 1.15s var(--ease),
+    opacity 0.7s 0.18s ease-out,
+    translate 0.95s 0.1s var(--ease),
+    content-visibility 1.15s allow-discrete;
 }
 
 .me-summary-line {
   display: block;
-  font-size: 0.9375rem;
+  max-width: 34rem;
+  font-size: var(--t-base);
   color: var(--ink-2);
 }
 
-/* The marker rides the heading rather than the summary line, so it stays
-   optically level with the big type instead of drifting down beside it. */
-/* The marker rides the heading rather than the summary line, so it stays
-   optically level with the big type instead of drifting down beside it. */
+/* The marker rides the heading so it stays optically level with the big type
+   instead of drifting down beside the sub-line. */
 .me-details summary .me-section-title {
   display: flex;
   align-items: baseline;
@@ -307,7 +429,9 @@
   content: "+";
   flex-shrink: 0;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 1.5rem;
+  /* Borrowing the title step: the glyph wants to match the heading it hangs
+     off, not sit on a step of its own. */
+  font-size: var(--t-md);
   font-weight: 400;
   line-height: 1;
   color: var(--ink-3);
@@ -318,17 +442,11 @@
   transform: rotate(135deg);
 }
 
-
 /*
  * Rows arrive one after another when a section opens, ordered by `--i` from
- * the markup. Six frames apart is enough to read as a sequence and short
- * enough that nobody waits for it.
- */
-/*
- * The per-row stagger is the flourish on top of the content box above, which
- * is what actually carries the open and close. A keyframe only plays forwards,
- * so this deliberately does not try to handle closing — the wrapper's own
- * transition reverses, and the rows ride it down together.
+ * the markup. This is the flourish on top of the content box above, which is
+ * what actually carries both directions — a keyframe cannot handle closing, so
+ * it deliberately does not try. The rows ride the wrapper down instead.
  */
 @keyframes me-rise {
   from {
@@ -339,44 +457,44 @@
 
 .me-details[open] .me-jobs > li,
 .me-details[open] .me-projects > li {
-  animation: me-rise 0.65s var(--ease) backwards;
-  animation-delay: calc(0.1s + var(--i, 0) * 70ms);
+  animation: me-rise 0.85s var(--ease) backwards;
+  animation-delay: calc(0.18s + var(--i, 0) * 95ms);
 }
 
 /* ── Experience ── */
 
 .me-jobs {
-  margin: 2.5rem 0 0;
+  margin: 2.25rem 0 0;
   padding: 0;
   list-style: none;
 }
 
 .me-jobs > li + li {
-  margin-top: 2.25rem;
-  padding-top: 2.25rem;
+  margin-top: 2rem;
+  padding-top: 2rem;
   border-top: 1px solid var(--rule);
 }
 
 .me-role {
   display: block;
-  margin-top: 0.3rem;
-  font-size: 0.8125rem;
-  font-weight: 400;
+  margin-top: 0.35rem;
+  font-size: var(--t-sm);
+  font-weight: var(--w-body);
   color: var(--ink-3);
 }
 
 .me-jobs ul {
-  margin: 0.9rem 0 0;
+  margin: 1rem 0 0;
   padding: 0;
   list-style: none;
 }
 
 .me-jobs ul li {
   position: relative;
-  margin-top: 0.4rem;
+  margin-top: 0.45rem;
   padding-left: 1rem;
-  font-size: 0.875rem;
-  line-height: 1.6;
+  font-size: var(--t-base);
+  line-height: 1.62;
   color: var(--ink-2);
 }
 
@@ -384,7 +502,7 @@
   content: "";
   position: absolute;
   left: 0;
-  top: 0.65em;
+  top: 0.68em;
   width: 0.4rem;
   height: 1px;
   background: var(--ink-3);
@@ -393,41 +511,39 @@
 /* ── Projects ── */
 
 .me-projects {
-  margin: 2.5rem 0 0;
+  margin: 2.25rem 0 0;
   padding: 0;
   list-style: none;
 }
 
 .me-projects > li {
   display: grid;
-  grid-template-columns: 2.5rem 1fr;
+  grid-template-columns: 2.25rem 1fr;
   gap: 0 1rem;
-  padding: 1.75rem 0;
+  padding: 1.6rem 0;
 }
 
 .me-projects > li + li {
   border-top: 1px solid var(--rule);
 }
 
-/* The index shifts a hair toward the title on hover — the only movement in
-   the row, so the eye knows which one it is without anything lighting up. */
+/*
+ * Mono and tabular, because the index is data. It does not move on hover —
+ * that nudge fought the underline draw, which is the page's hover idiom, and
+ * two gestures firing in different directions on one row reads as noise.
+ */
 .me-num {
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
+  font-size: var(--t-xs);
+  font-variant-numeric: tabular-nums;
   color: var(--ink-3);
-  padding-top: 0.3rem;
-  transition: transform 0.4s var(--ease), color 0.3s var(--ease);
-}
-
-.me-projects > li:hover .me-num {
-  transform: translateX(3px);
-  color: var(--ink-2);
+  padding-top: 0.45rem;
 }
 
 .me-projects p {
-  margin-top: 0.5rem;
-  font-size: 0.9375rem;
-  max-width: 44rem;
+  margin-top: 0.55rem;
+  font-size: var(--t-base);
+  max-width: 42rem;
 }
 
 .me-meta {
@@ -435,10 +551,10 @@
   flex-wrap: wrap;
   align-items: center;
   gap: 0.4rem 1.25rem;
-  margin-top: 0.9rem;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.625rem;
-  letter-spacing: 0.08em;
+  margin-top: 1rem;
+  font-size: var(--t-2xs);
+  font-weight: var(--w-mid);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -450,35 +566,30 @@
 /* ── Skills ── */
 
 .me-skills {
-  margin: 2rem 0 0;
+  margin: 1.75rem 0 0;
 }
 
 .me-skills > div {
   display: grid;
   grid-template-columns: 9rem 1fr;
   gap: 0 2rem;
-  padding: 0.7rem 0;
+  padding: 0.65rem 0;
 }
 
 .me-skills dt {
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.625rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  padding-top: 0.2rem;
+  padding-top: 0.28rem;
 }
 
 .me-skills dd {
   margin: 0;
-  font-size: 0.9375rem;
+  font-size: var(--t-base);
   color: var(--ink-2);
 }
 
 /* ── Awards ── */
 
 .me-awards {
-  margin: 2rem 0 0;
+  margin: 1.75rem 0 0;
   padding: 0;
   list-style: none;
 }
@@ -486,7 +597,7 @@
 .me-awards li {
   position: relative;
   padding-left: 1rem;
-  font-size: 0.9375rem;
+  font-size: var(--t-base);
   line-height: 1.65;
   color: var(--ink-2);
 }
@@ -505,6 +616,69 @@
   background: var(--ink-3);
 }
 
+/* ── Preloader ── */
+
+.me-pre {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--paper);
+  transition: opacity 0.5s var(--ease);
+}
+
+/* The whole overlay lifts away rather than fading in place — it was written,
+   so it leaves the way a line does. */
+.me-pre[data-leaving] {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.me-pre-word {
+  display: flex;
+  align-items: center;
+  gap: 0.1em;
+  font-family: var(--font-geist-mono), ui-monospace, monospace;
+  font-size: clamp(1.75rem, 6vw, 3rem);
+  font-weight: 400;
+  letter-spacing: -0.03em;
+  color: var(--ink) !important;
+  transition:
+    opacity 0.45s var(--ease),
+    translate 0.55s var(--ease);
+}
+
+.me-pre[data-leaving] .me-pre-word {
+  opacity: 0;
+  translate: 0 -0.4rem;
+}
+
+/*
+ * The caret. 530ms is roughly what a terminal actually blinks at — faster
+ * reads as anxious, slower as broken. `steps(1)` because a caret snaps; a
+ * caret that fades is a design flourish pretending to be a caret.
+ */
+.me-pre-caret {
+  display: block;
+  width: 0.06em;
+  height: 1.05em;
+  background: var(--ink);
+  animation: me-blink 1.06s steps(1) infinite;
+}
+
+@keyframes me-blink {
+  0%,
+  50% {
+    opacity: 1;
+  }
+  50.01%,
+  100% {
+    opacity: 0;
+  }
+}
+
 /* ── Footer ── */
 
 .me-foot {
@@ -513,11 +687,11 @@
   gap: 1rem 2rem;
   align-items: center;
   justify-content: space-between;
-  padding: 2.5rem 0 0;
+  padding: 2.25rem 0 0;
   border-top: 1px solid var(--rule);
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.6875rem;
-  letter-spacing: 0.08em;
+  font-size: var(--t-2xs);
+  font-weight: var(--w-mid);
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-3);
 }
@@ -527,8 +701,121 @@
   gap: 1.75rem;
 }
 
-.me-foot a {
+.me-foot a,
+.me-foot button {
   color: var(--ink);
+}
+
+.me-foot button {
+  font: inherit;
+  letter-spacing: inherit;
+  text-transform: inherit;
+  background: none;
+  border: 0;
+  padding: 0;
+  cursor: pointer;
+  position: relative;
+}
+
+/* Same drawn underline as every other interactive thing here. */
+.me-foot button::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+
+.me-foot button:hover::after,
+.me-foot button:focus-visible::after {
+  transform: scaleX(1);
+}
+
+/*
+ * Print.
+ *
+ * The page is black with grain and two collapsed sections — printed as-is you
+ * would get a sheet of black ink containing three headings and nothing else.
+ * So: invert to paper, drop the texture, force both `<details>` open, and
+ * write link targets out in full, because a URL you cannot click is only
+ * useful if you can read it.
+ */
+@media print {
+  .me {
+    --ink: #000;
+    --ink-2: #333;
+    --ink-3: #666;
+    --rule: rgba(0, 0, 0, 0.18);
+
+    padding: 0;
+    color: #000;
+    background: #fff;
+  }
+
+  .me::before,
+  .me::after,
+  .me-pre {
+    display: none !important;
+  }
+
+  /* `details-content` is sized by a transition on screen; print needs it
+     simply open, at its natural height, with no animation pending. */
+  .me-details::details-content,
+  .me-details[open]::details-content {
+    block-size: auto !important;
+    opacity: 1 !important;
+    translate: none !important;
+    transition: none !important;
+    overflow: visible !important;
+    content-visibility: visible !important;
+  }
+
+  .me-details summary .me-section-title::after,
+  .me-foot button,
+  .me-foot span {
+    display: none;
+  }
+
+  /* Print the destination next to the label — the link is dead on paper. */
+  .me-links a::after,
+  .me-meta a[href^="http"]::after {
+    content: " (" attr(href) ")";
+    /* The screen rule sizes this as a 1px underline bar. Every one of those
+       has to be undone or the URL renders inside it and clips to nothing. */
+    position: static;
+    width: auto;
+    height: auto;
+    bottom: auto;
+    transform: none;
+    transition: none;
+    background: none;
+    font-size: 0.85em;
+    color: #666;
+  }
+
+  /* The hover detail has to be visible, since nobody hovers a sheet of paper. */
+  .me-edu-detail {
+    position: static;
+    opacity: 1;
+    translate: none;
+    max-width: none;
+  }
+
+  .me section,
+  .me-projects > li,
+  .me-jobs > li {
+    break-inside: avoid;
+  }
+
+  .me-details[open] .me-jobs > li,
+  .me-details[open] .me-projects > li {
+    animation: none !important;
+  }
 }
 
 @media (min-width: 768px) {
@@ -536,8 +823,18 @@
     padding-left: 3rem;
     padding-right: 3rem;
   }
+
+  .me section {
+    padding: 4rem 0;
+  }
 }
 
+/*
+ * `::details-content` is not matched by `.me *`, so it needs naming — and
+ * killing its transition is not enough on its own. The closed state sets
+ * `opacity: 0` and an offset to animate from, so without the transition the
+ * content would sit there invisible and displaced. Reset both.
+ */
 @media (prefers-reduced-motion: reduce) {
   .me,
   .me *,
@@ -546,12 +843,6 @@
     transition: none !important;
   }
 
-  /*
-   * `::details-content` is not matched by `.me *`, so it needs naming — and
-   * killing its transition is not enough on its own. The closed state sets
-   * `opacity: 0` and an offset to animate from, so without the transition the
-   * content would simply sit there invisible and displaced. Reset both.
-   */
   .me-details::details-content {
     transition: none !important;
     opacity: 1;

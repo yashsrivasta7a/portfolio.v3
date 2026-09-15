@@ -177,7 +177,7 @@ const Navbar = ({
   };
 
   return (
-    <div className="w-full flex justify-center px-4 md:px-0 cursor-none">
+    <div className="w-full flex justify-center px-4 md:px-0">
       <nav
         className={`w-full md:w-max flex items-center justify-between md:justify-start box-border px-4 md:px-6 ${className}`}
         aria-label="Primary"
