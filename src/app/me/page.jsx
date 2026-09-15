@@ -1,7 +1,6 @@
 import Link from "next/link";
 import HighlightToggle from "./HighlightToggle";
 import Preloader from "./Preloader";
-import PrintButton from "./PrintButton";
 import "./me.css";
 
 export const metadata = {
@@ -340,7 +339,13 @@ export default function MePage() {
       <footer className="me-foot">
         <span>Prefer the PDF?</span>
         <div>
-          <PrintButton />
+          <a
+            href="https://drive.google.com/file/d/1Gr7QfLpqAYDDzEi8_MA9j6K2Vr1zN3CT/view"
+            target="_blank"
+            rel="noreferrer"
+          >
+            Resume
+          </a>
           <Link href="/">Portfolio</Link>
         </div>
       </footer>

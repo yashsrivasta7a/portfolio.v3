@@ -321,7 +321,10 @@
 
 /* Takes the full width so the dates below it are pushed to the opposite edge
    rather than sitting under the last word. */
+/* Explicitly block: flex blockifies its children anyway, but `<b>` and `<i>`
+   are inline by default and being clear about it removes the doubt. */
 .me-edu-detail b {
+  display: block;
   align-self: stretch;
   font-size: var(--t-sm);
   font-weight: var(--w-mid);
@@ -911,39 +914,8 @@
   gap: 1.75rem;
 }
 
-.me-foot a,
-.me-foot button {
+.me-foot a {
   color: var(--ink);
-}
-
-.me-foot button {
-  font: inherit;
-  letter-spacing: inherit;
-  text-transform: inherit;
-  background: none;
-  border: 0;
-  padding: 0;
-  cursor: pointer;
-  position: relative;
-}
-
-/* Same drawn underline as every other interactive thing here. */
-.me-foot button::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: -2px;
-  width: 100%;
-  height: 1px;
-  background: currentColor;
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform 0.4s var(--ease);
-}
-
-.me-foot button:hover::after,
-.me-foot button:focus-visible::after {
-  transform: scaleX(1);
 }
 
 /*
@@ -987,7 +959,6 @@
 
   .me-details summary .me-section-title::after,
   .me-toggle,
-  .me-foot button,
   .me-foot span {
     display: none;
   }
