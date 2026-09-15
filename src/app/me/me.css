@@ -10,6 +10,16 @@
  */
 
 .me {
+  /*
+   * Give this page the system cursor back.
+   *
+   * The layout's cursor component sets `cursor: none` imperatively on its own
+   * container, which is an ancestor of this page — so it has to be overridden
+   * here rather than simply unset. `!important` because an inline style on the
+   * ancestor is what we are competing with.
+   */
+  cursor: auto !important;
+
   /* Lets `block-size` interpolate to and from `auto`, which is what allows the
      collapse above to animate rather than snap. */
   interpolate-size: allow-keywords;
@@ -19,7 +29,7 @@
   --ink-2: #9b99a4;
   --ink-3: #5f5d68;
   --rule: rgba(236, 235, 239, 0.1);
-  --paper: #0d0d10;
+  --paper: #000000;
 
   --measure: 60rem;
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
@@ -65,9 +75,9 @@
   inset: 0;
   z-index: -1;
   pointer-events: none;
-  opacity: 0.2;
+  opacity: 0.32;
   mix-blend-mode: screen;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.55'/%3E%3C/svg%3E");
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.7'/%3E%3C/svg%3E");
 }
 
 .me > * {
@@ -221,9 +231,18 @@
 
 /* ── Collapsibles ── */
 
+.me * {
+  cursor: inherit;
+}
+
+/* Interactive things still say so. */
+.me a,
+.me summary {
+  cursor: pointer !important;
+}
+
 .me-details summary {
   display: block;
-  cursor: pointer;
   list-style: none;
 }
 
@@ -244,26 +263,37 @@
 .me-details::details-content {
   block-size: 0;
   overflow: hidden;
+  /* Closing is the slower of the two on purpose. Opening reveals something you
+     asked for, so it can move; closing takes it away, and taking something
+     away too fast reads as a glitch rather than a gesture. */
+  opacity: 0;
+  translate: 0 -0.75rem;
   transition:
-    block-size 0.45s var(--ease),
-    content-visibility 0.45s allow-discrete;
+    block-size 0.55s var(--ease),
+    opacity 0.35s ease-in,
+    translate 0.45s var(--ease),
+    content-visibility 0.55s allow-discrete;
 }
 
 .me-details[open]::details-content {
   block-size: auto;
+  opacity: 1;
+  translate: 0 0;
+  transition:
+    block-size 0.75s var(--ease),
+    opacity 0.5s 0.12s ease-out,
+    translate 0.6s 0.06s var(--ease),
+    content-visibility 0.75s allow-discrete;
 }
 
 .me-summary-line {
   display: block;
   font-size: 0.9375rem;
   color: var(--ink-2);
-  transition: color 0.3s var(--ease);
 }
 
-.me-details summary:hover .me-summary-line {
-  color: var(--ink);
-}
-
+/* The marker rides the heading rather than the summary line, so it stays
+   optically level with the big type instead of drifting down beside it. */
 /* The marker rides the heading rather than the summary line, so it stays
    optically level with the big type instead of drifting down beside it. */
 .me-details summary .me-section-title {
@@ -281,33 +311,36 @@
   font-weight: 400;
   line-height: 1;
   color: var(--ink-3);
-  transition: transform 0.45s var(--ease), color 0.3s var(--ease);
+  transition: transform 0.45s var(--ease);
 }
 
 .me-details[open] summary .me-section-title::after {
   transform: rotate(135deg);
 }
 
-.me-details summary:hover .me-section-title::after {
-  color: var(--ink);
-}
 
 /*
  * Rows arrive one after another when a section opens, ordered by `--i` from
  * the markup. Six frames apart is enough to read as a sequence and short
  * enough that nobody waits for it.
  */
+/*
+ * The per-row stagger is the flourish on top of the content box above, which
+ * is what actually carries the open and close. A keyframe only plays forwards,
+ * so this deliberately does not try to handle closing — the wrapper's own
+ * transition reverses, and the rows ride it down together.
+ */
 @keyframes me-rise {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(14px);
   }
 }
 
 .me-details[open] .me-jobs > li,
 .me-details[open] .me-projects > li {
-  animation: me-rise 0.5s var(--ease) backwards;
-  animation-delay: calc(var(--i, 0) * 45ms);
+  animation: me-rise 0.65s var(--ease) backwards;
+  animation-delay: calc(0.1s + var(--i, 0) * 70ms);
 }
 
 /* ── Experience ── */
@@ -506,9 +539,22 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .me,
   .me *,
   .me *::after {
     animation: none !important;
     transition: none !important;
+  }
+
+  /*
+   * `::details-content` is not matched by `.me *`, so it needs naming — and
+   * killing its transition is not enough on its own. The closed state sets
+   * `opacity: 0` and an offset to animate from, so without the transition the
+   * content would simply sit there invisible and displaced. Reset both.
+   */
+  .me-details::details-content {
+    transition: none !important;
+    opacity: 1;
+    translate: none;
   }
 }
