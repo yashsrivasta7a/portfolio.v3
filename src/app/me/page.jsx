@@ -191,7 +191,7 @@ export default function MePage() {
       <GlowMount />
 
       <div className="me-switches">
-        <Switch label="Glow" attr="glow" storageKey="me_glow" defaultOn={false} />
+        <Switch label="Background" attr="glow" storageKey="me_glow" defaultOn={false} />
         <Switch label="Highlight" attr="highlight" storageKey="me_highlight" />
       </div>
 
