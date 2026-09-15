@@ -166,35 +166,43 @@ const SKILLS = [
 ];
 
 /**
- * `proof` is the certificate, where one exists. Claims on a page like this are
- * cheap; the link is what makes them worth reading.
+ * `name` is the achievement itself and carries the certificate link where one
+ * exists — the thing being claimed is the thing you click, rather than a
+ * trailing label repeating that proof is available.
  */
 const AWARDS = [
   {
-    text: "Secretary of MRSDC, my college's developer community. I ran more than ten events — workshops, talks, hackathons — usually with 60 to 80 people in the room.",
+    name: "Secretary, MRSDC",
+    rest: " — my college's developer community. I ran more than ten events, workshops, talks and hackathons, usually with 60 to 80 people in the room.",
   },
   {
-    text: "Organised Hack It Up, our intra-college hackathon, end to end.",
+    name: "Hack It Up",
     proof: "https://drive.google.com/file/d/1CfPuv0vRJnND9VaEXLxD0-AuOhzsXeK3/view",
+    rest: " — organised our intra-college hackathon, end to end.",
   },
   {
-    text: "Placement coordinator for my department.",
+    name: "Placement coordinator",
     proof: "https://drive.google.com/file/d/1B9iPB2LQqfDBTJsOnGBadsmNaJ8SND09/view",
+    rest: " for my department.",
   },
   {
-    text: "Won Code Sangam'24 against 60+ teams.",
+    name: "Code Sangam'24",
+    rest: " — first place, against 60+ teams.",
   },
   {
-    text: "Won Design Blitz.",
+    name: "Design Blitz",
     proof: "https://drive.google.com/file/d/1DYyxlMxTytPXUTV-92-9u-vKgwVs6YiG/view",
+    rest: " — first place.",
   },
   {
-    text: "Came third at Hacked-a-thon, out of 50+ teams.",
+    name: "Hacked-a-thon",
     proof: "https://drive.google.com/file/d/1CBhThPy9ctJhdbq1AJdvJpAC4Kfm9W7p/view",
+    rest: " — third, out of 50+ teams.",
   },
   {
-    text: "Came third at Innoverse'36.",
+    name: "Innoverse'36",
     proof: "https://drive.google.com/file/d/1wISYOtPvuCBVcNiKnVeMzWNwd1e7bdq4/view",
+    rest: " — third place.",
   },
 ];
 
@@ -334,13 +342,15 @@ export default function MePage() {
         <h2 className="me-section-title">Leadership &amp; awards</h2>
         <ul className="me-awards">
           {AWARDS.map((a) => (
-            <li key={a.text}>
-              {a.text}
+            <li key={a.name}>
               {a.proof ? (
                 <a href={a.proof} target="_blank" rel="noreferrer">
-                  Certificate
+                  {a.name}
                 </a>
-              ) : null}
+              ) : (
+                <b>{a.name}</b>
+              )}
+              {a.rest}
             </li>
           ))}
         </ul>

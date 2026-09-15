@@ -689,26 +689,21 @@
 }
 
 /*
- * The certificate link.
+ * The achievement's own name carries the certificate.
  *
- * Set as a label rather than inline prose so it reads as an attachment to the
- * claim rather than part of the sentence — and quiet, because the claim is the
- * point and the proof is only there for anyone who doubts it.
+ * Linked and unlinked names are set identically — same weight, same colour —
+ * so the list reads evenly and the underline on hover is the only thing that
+ * says "there is proof behind this one". A trailing label would have repeated
+ * in every row what the underline already says once.
  */
-.me-awards a {
-  position: relative;
-  margin-left: 0.6rem;
-  font-size: var(--t-2xs);
-  font-weight: var(--w-mid);
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-  white-space: nowrap;
-  transition: color 0.3s var(--ease);
+.me-awards a,
+.me-awards b {
+  font-weight: var(--w-bold);
+  color: var(--ink);
 }
 
-.me-awards a:hover {
-  color: var(--ink);
+.me-awards a {
+  position: relative;
 }
 
 /* Same drawn underline as every other link on the page. */
