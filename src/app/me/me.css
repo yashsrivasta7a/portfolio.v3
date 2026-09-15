@@ -28,12 +28,18 @@
    * doing identical work — a difference nobody can perceive is cost without
    * signal. Everything now lands on one of these five or it does not ship.
    */
-  --t-2xs: 0.625rem;  /* labels and eyebrows only */
-  --t-xs: 0.6875rem;  /* data: dates, index */
-  --t-sm: 0.8125rem;  /* supporting detail: roles, header links */
-  --t-base: 0.9375rem; /* body */
-  --t-md: 1.375rem;   /* project titles, job names */
-  --t-lg: clamp(2rem, 5vw, 3rem); /* section headings */
+  --t-2xs: 0.625rem;
+  /* labels and eyebrows only */
+  --t-xs: 0.6875rem;
+  /* data: dates, index */
+  --t-sm: 0.8125rem;
+  /* supporting detail: roles, header links */
+  --t-base: 0.9375rem;
+  /* body */
+  --t-md: 1.375rem;
+  /* project titles, job names */
+  --t-lg: clamp(2rem, 5vw, 3rem);
+  /* section headings */
 
   /*
    * Satoshi's variable axis is loaded (100–900), so these are real weights and
@@ -49,15 +55,10 @@
 
   position: relative;
   min-height: 100vh;
-  /*
-   * No `overflow` here, on purpose.
-   *
-   * Any `overflow` other than `visible` makes an element a containing block
-   * for its `position: fixed` descendants — which anchored the glow, the grain
-   * and the black ground to this element instead of the viewport, so the whole
-   * background scrolled with the page like an enormous section. The section
-   * hover bleed is clipped by the sections themselves instead.
-   */
+  /* Contains the section hover bleed below. `clip` rather than `hidden`
+     because `hidden` would make this a scroll container and break the sticky
+     and fixed layers inside it. */
+  overflow-x: clip;
   padding: 8.5rem 1.5rem 5rem;
   color: var(--ink);
   font-family: "satoshi", ui-sans-serif, system-ui, sans-serif;
@@ -79,41 +80,8 @@
   content: "";
   position: fixed;
   inset: 0;
-  /* Deepest layer: the video sits on top of this at -2, the grain at -1. */
-  z-index: -3;
-  background: var(--paper);
-}
-
-/*
- * The glow — a WebGL canvas, mounted only while the switch is on.
- *
- * Fixed and full-bleed at -2: the black ground sits behind it at -3 and the
- * grain reads across it at -1, so it is the page's background rather than a
- * layer sitting on top of one.
- */
-/*
- * Below the grain, above the black ground — so it *is* the background rather
- * than a film laid over one. `.me::after` paints black at -3, this sits at -2,
- * and the grain reads across it at -1.
- */
-.me-glow {
-  position: fixed;
-  inset: 0;
   z-index: -2;
-  width: 100%;
-  height: 100%;
-  display: block;
-  pointer-events: none;
-  /* Fades up once the canvas has had a frame to draw, so the switch does not
-     reveal a flash of undrawn black. */
-  opacity: 0;
-  animation: me-glow-in 1.1s var(--ease) 0.15s forwards;
-}
-
-@keyframes me-glow-in {
-  to {
-    opacity: 1;
-  }
+  background: var(--paper);
 }
 
 /*
@@ -136,18 +104,7 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)' opacity='0.5'/%3E%3C/svg%3E");
 }
 
-/*
- * Content sits in the measure. The layers do not.
- *
- * This rule is declared after `.me-glow` and matches at the same specificity,
- * so without the exclusions it won the cascade and forced the video to
- * `position: relative; z-index: 1` inside a 60rem column — which is precisely
- * why it rendered as an enormous centred section instead of a fixed
- * background. The switches are excluded for the same reason: they are
- * absolutely positioned in the corner and have no business being centred or
- * capped.
- */
-.me > *:not(.me-glow):not(.me-switches) {
+.me>* {
   position: relative;
   z-index: 1;
   max-width: var(--measure);
@@ -398,7 +355,7 @@
 }
 
 .me-edu:hover .me-edu-detail,
-.me-edu button:focus-visible ~ .me-edu-detail {
+.me-edu button:focus-visible~.me-edu-detail {
   opacity: 1;
   translate: 0 0;
 }
@@ -422,9 +379,6 @@
  */
 .me section {
   position: relative;
-  /* Each section clips its own hover bleed. This used to live on `.me`, but
-     an overflow value there traps every fixed layer on the page. */
-  overflow-x: clip;
   padding: 3.25rem 0;
   border-top: 1px solid var(--rule);
   transition: color 0.45s var(--ease);
@@ -482,6 +436,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+
   .me section,
   .me section::before {
     transition: none;
@@ -603,8 +558,8 @@
   }
 }
 
-.me-details[open] .me-jobs > li,
-.me-details[open] .me-projects > li {
+.me-details[open] .me-jobs>li,
+.me-details[open] .me-projects>li {
   animation: me-rise 1.1s var(--ease) backwards;
   animation-delay: calc(0.3s + var(--i, 0) * 130ms);
 }
@@ -617,7 +572,7 @@
   list-style: none;
 }
 
-.me-jobs > li + li {
+.me-jobs>li+li {
   margin-top: 2rem;
   padding-top: 2rem;
   border-top: 1px solid var(--rule);
@@ -664,14 +619,14 @@
   list-style: none;
 }
 
-.me-projects > li {
+.me-projects>li {
   display: grid;
   grid-template-columns: 2.25rem 1fr;
   gap: 0 1rem;
   padding: 1.6rem 0;
 }
 
-.me-projects > li + li {
+.me-projects>li+li {
   border-top: 1px solid var(--rule);
 }
 
@@ -735,7 +690,7 @@
   margin: 1.75rem 0 0;
 }
 
-.me-skills > div {
+.me-skills>div {
   display: grid;
   grid-template-columns: 9rem 1fr;
   gap: 0 2rem;
@@ -767,7 +722,7 @@
   color: var(--ink-2);
 }
 
-.me-awards p + p {
+.me-awards p+p {
   margin-top: 0.9rem;
 }
 
@@ -835,9 +790,9 @@
   gap: 0.65rem;
 }
 
-/* Both switches share a width so the tracks line up in a column — otherwise
-   "Glow" and "Highlight" put their thumbs at different x positions and the
-   pair reads as two unrelated controls. */
+/* Full-width so the track sits at a fixed x position, and so a second switch
+   added later lines up with this one rather than shrink-wrapping to its own
+   label. */
 .me-toggle {
   display: inline-flex;
   align-items: center;
@@ -951,10 +906,12 @@
 }
 
 @keyframes me-blink {
+
   0%,
   50% {
     opacity: 1;
   }
+
   50.01%,
   100% {
     opacity: 0;
@@ -1062,13 +1019,13 @@
   }
 
   .me section,
-  .me-projects > li,
-  .me-jobs > li {
+  .me-projects>li,
+  .me-jobs>li {
     break-inside: avoid;
   }
 
-  .me-details[open] .me-jobs > li,
-  .me-details[open] .me-projects > li {
+  .me-details[open] .me-jobs>li,
+  .me-details[open] .me-projects>li {
     animation: none !important;
   }
 }
@@ -1098,6 +1055,7 @@
  * content would sit there invisible and displaced. Reset both.
  */
 @media (prefers-reduced-motion: reduce) {
+
   .me,
   .me *,
   .me *::after {

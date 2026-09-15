@@ -1,5 +1,4 @@
 import Link from "next/link";
-import GlowMount from "./GlowMount";
 import Preloader from "./Preloader";
 import Switch from "./Switch";
 import "./me.css";
@@ -187,11 +186,7 @@ export default function MePage() {
     <main className="me">
       <Preloader />
 
-      {/* Mounted only while the switch is on — see GlowMount. */}
-      <GlowMount />
-
       <div className="me-switches">
-        <Switch label="Background" attr="glow" storageKey="me_glow" defaultOn={false} />
         <Switch label="Highlight" attr="highlight" storageKey="me_highlight" />
       </div>
 
