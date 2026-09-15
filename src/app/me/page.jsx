@@ -173,17 +173,14 @@ export default function MePage() {
   return (
     <main className="me">
       <header className="me-head">
-        <p className="me-eyebrow">Everything, in one page</p>
         <h1>
           Yash <em>Srivastava.</em>
         </h1>
-        <p className="me-intro">
-          I build things for the web, from the screen all the way back to the
-          servers. That's meant React and Next.js most days, NestJS and AWS
-          underneath, and more and more of it involves getting language models
-          to do something genuinely useful. I'm in my final year of computer
-          science in Gurugram, and I've been shipping work people actually use
-          since 2024.
+        {/* One line, not a paragraph. Whoever lands here wants to know what you
+            do and where — everything below says the rest better than prose. */}
+        <p className="me-standfirst">
+          I build the whole thing: the screen, the server, and the awkward bits
+          in between.
         </p>
         <ul className="me-links">
           {LINKS.map((l) => (
@@ -198,7 +195,7 @@ export default function MePage() {
       </header>
 
       <section>
-        <p className="me-eyebrow">Education</p>
+        <h2 className="me-section-title">Education</h2>
         <div className="me-row">
           <div>
             <h3>Manav Rachna International Institute of Research and Studies</h3>
@@ -214,7 +211,7 @@ export default function MePage() {
       <section>
         <details className="me-details">
           <summary>
-            <p className="me-eyebrow">Experience</p>
+            <h2 className="me-section-title">Experience</h2>
             <span className="me-summary-line">
               Six of them since 2024 — agencies, a startup, an industrial IoT
               company and a Big Four firm.
@@ -251,9 +248,9 @@ export default function MePage() {
       </section>
 
       <section>
-        <details className="me-details" open>
+        <details className="me-details">
           <summary>
-            <p className="me-eyebrow">Selected work</p>
+            <h2 className="me-section-title">Selected work</h2>
             <span className="me-summary-line">
               Eight things I built because I wanted them to exist. Most are
               live, most are open source.
@@ -288,7 +285,7 @@ export default function MePage() {
       </section>
 
       <section>
-        <p className="me-eyebrow">Skills</p>
+        <h2 className="me-section-title">Skills</h2>
         <dl className="me-skills">
           {SKILLS.map(([group, items]) => (
             <div key={group}>
@@ -300,7 +297,7 @@ export default function MePage() {
       </section>
 
       <section>
-        <p className="me-eyebrow">Leadership &amp; awards</p>
+        <h2 className="me-section-title">Leadership &amp; awards</h2>
         <ul className="me-awards">
           {AWARDS.map((a) => (
             <li key={a}>{a}</li>

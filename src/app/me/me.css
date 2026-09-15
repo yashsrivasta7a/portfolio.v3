@@ -10,6 +10,10 @@
  */
 
 .me {
+  /* Lets `block-size` interpolate to and from `auto`, which is what allows the
+     collapse above to animate rather than snap. */
+  interpolate-size: allow-keywords;
+
   /* Five colours. Everything below is derived from them. */
   --ink: #ecebef;
   --ink-2: #9b99a4;
@@ -107,13 +111,21 @@
   text-decoration: none;
 }
 
-.me-eyebrow {
-  margin: 0 0 0.75rem !important;
-  font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 0.625rem;
-  letter-spacing: 0.3em;
-  text-transform: uppercase;
-  color: var(--ink-3) !important;
+/*
+ * Section headings.
+ *
+ * These were 10px mono eyebrows, which meant "Education" and "Experience" were
+ * the smallest text on a page they were supposed to be structuring — you had
+ * to hunt for the thing telling you where you are. They are headings now, and
+ * they read like it.
+ */
+.me-section-title {
+  margin: 0 0 0.85rem;
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  font-weight: 700;
+  line-height: 1.05;
+  letter-spacing: -0.032em;
+  color: var(--ink);
 }
 
 /* ── Header ── */
@@ -122,13 +134,10 @@
   padding-bottom: 4.5rem;
 }
 
-.me-head .me-eyebrow {
-  margin-bottom: 2rem !important;
-}
-
-.me-intro {
-  max-width: 34rem;
-  font-size: 1.0625rem;
+.me-standfirst {
+  margin-top: 1.5rem !important;
+  font-size: 1.125rem;
+  color: var(--ink-2);
 }
 
 .me-links {
@@ -222,6 +231,28 @@
   display: none;
 }
 
+/*
+ * Animate the collapse, not just the open.
+ *
+ * `<details>` natively animates in neither direction — the open stagger below
+ * only ever worked because it is a keyframe on the rows, which is why closing
+ * looked dead by comparison. Transitioning the content box needs a height to
+ * interpolate toward, and `auto` is not one, so `interpolate-size` is what
+ * makes this possible at all. Browsers without it simply snap, which is the
+ * behaviour everyone already had.
+ */
+.me-details::details-content {
+  block-size: 0;
+  overflow: hidden;
+  transition:
+    block-size 0.45s var(--ease),
+    content-visibility 0.45s allow-discrete;
+}
+
+.me-details[open]::details-content {
+  block-size: auto;
+}
+
 .me-summary-line {
   display: block;
   font-size: 0.9375rem;
@@ -233,23 +264,31 @@
   color: var(--ink);
 }
 
-/* The marker lives in CSS so the summary stays one readable sentence. */
-.me-summary-line::after {
+/* The marker rides the heading rather than the summary line, so it stays
+   optically level with the big type instead of drifting down beside it. */
+.me-details summary .me-section-title {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+}
+
+.me-details summary .me-section-title::after {
   content: "+";
-  float: right;
-  margin-left: 1rem;
+  flex-shrink: 0;
   font-family: var(--font-geist-mono), ui-monospace, monospace;
-  font-size: 1.125rem;
+  font-size: 1.5rem;
+  font-weight: 400;
   line-height: 1;
   color: var(--ink-3);
   transition: transform 0.45s var(--ease), color 0.3s var(--ease);
 }
 
-.me-details[open] .me-summary-line::after {
+.me-details[open] summary .me-section-title::after {
   transform: rotate(135deg);
 }
 
-.me-details summary:hover .me-summary-line::after {
+.me-details summary:hover .me-section-title::after {
   color: var(--ink);
 }
 
