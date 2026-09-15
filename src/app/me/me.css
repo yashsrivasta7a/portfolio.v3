@@ -685,6 +685,48 @@
   margin-top: 0.55rem;
 }
 
+/*
+ * The certificate link.
+ *
+ * Set as a label rather than inline prose so it reads as an attachment to the
+ * claim rather than part of the sentence — and quiet, because the claim is the
+ * point and the proof is only there for anyone who doubts it.
+ */
+.me-awards a {
+  position: relative;
+  margin-left: 0.6rem;
+  font-size: var(--t-2xs);
+  font-weight: var(--w-mid);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  white-space: nowrap;
+  transition: color 0.3s var(--ease);
+}
+
+.me-awards a:hover {
+  color: var(--ink);
+}
+
+/* Same drawn underline as every other link on the page. */
+.me-awards a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s var(--ease);
+}
+
+.me-awards a:hover::after,
+.me-awards a:focus-visible::after {
+  transform: scaleX(1);
+}
+
 .me-awards li::before {
   content: "";
   position: absolute;
@@ -934,7 +976,8 @@
 
   /* Print the destination next to the label — the link is dead on paper. */
   .me-links a::after,
-  .me-meta a[href^="http"]::after {
+  .me-meta a[href^="http"]::after,
+  .me-awards a::after {
     content: " (" attr(href) ")";
     /* The screen rule sizes this as a 1px underline bar. Every one of those
        has to be undone or the URL renders inside it and clips to nothing. */

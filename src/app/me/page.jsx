@@ -165,11 +165,37 @@ const SKILLS = [
   ["Cloud", "AWS IoT Core, Greengrass V2, Lambda, Kinesis, Docker"],
 ];
 
+/**
+ * `proof` is the certificate, where one exists. Claims on a page like this are
+ * cheap; the link is what makes them worth reading.
+ */
 const AWARDS = [
-  "Secretary of MRSDC, my college's developer community. I ran more than ten events — workshops, talks, hackathons — usually with 60 to 80 people in the room.",
-  "Organised Hack It Up, our intra-college hackathon, end to end.",
-  "Won Code Sangam'24 against 60+ teams, and Design Blitz.",
-  "Came third at Hacked-a-thon out of 50+ teams, and at Innoverse'36.",
+  {
+    text: "Secretary of MRSDC, my college's developer community. I ran more than ten events — workshops, talks, hackathons — usually with 60 to 80 people in the room.",
+  },
+  {
+    text: "Organised Hack It Up, our intra-college hackathon, end to end.",
+    proof: "https://drive.google.com/file/d/1CfPuv0vRJnND9VaEXLxD0-AuOhzsXeK3/view",
+  },
+  {
+    text: "Placement coordinator for my department.",
+    proof: "https://drive.google.com/file/d/1B9iPB2LQqfDBTJsOnGBadsmNaJ8SND09/view",
+  },
+  {
+    text: "Won Code Sangam'24 against 60+ teams.",
+  },
+  {
+    text: "Won Design Blitz.",
+    proof: "https://drive.google.com/file/d/1DYyxlMxTytPXUTV-92-9u-vKgwVs6YiG/view",
+  },
+  {
+    text: "Came third at Hacked-a-thon, out of 50+ teams.",
+    proof: "https://drive.google.com/file/d/1CBhThPy9ctJhdbq1AJdvJpAC4Kfm9W7p/view",
+  },
+  {
+    text: "Came third at Innoverse'36.",
+    proof: "https://drive.google.com/file/d/1wISYOtPvuCBVcNiKnVeMzWNwd1e7bdq4/view",
+  },
 ];
 
 export default function MePage() {
@@ -308,7 +334,14 @@ export default function MePage() {
         <h2 className="me-section-title">Leadership &amp; awards</h2>
         <ul className="me-awards">
           {AWARDS.map((a) => (
-            <li key={a}>{a}</li>
+            <li key={a.text}>
+              {a.text}
+              {a.proof ? (
+                <a href={a.proof} target="_blank" rel="noreferrer">
+                  Certificate
+                </a>
+              ) : null}
+            </li>
           ))}
         </ul>
       </section>
