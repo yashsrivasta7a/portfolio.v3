@@ -165,46 +165,22 @@ const SKILLS = [
   ["Cloud", "AWS IoT Core, Greengrass V2, Lambda, Kinesis, Docker"],
 ];
 
-/**
- * `name` is the achievement itself and carries the certificate link where one
- * exists — the thing being claimed is the thing you click, rather than a
- * trailing label repeating that proof is available.
- */
-const AWARDS = [
-  {
-    name: "Secretary, MRSDC",
-    rest: " — my college's developer community. I ran more than ten events, workshops, talks and hackathons, usually with 60 to 80 people in the room.",
-  },
-  {
-    name: "Hack It Up",
-    proof: "https://drive.google.com/file/d/1CfPuv0vRJnND9VaEXLxD0-AuOhzsXeK3/view",
-    rest: " — organised our intra-college hackathon, end to end.",
-  },
-  {
-    name: "Placement coordinator",
-    proof: "https://drive.google.com/file/d/1B9iPB2LQqfDBTJsOnGBadsmNaJ8SND09/view",
-    rest: " for my department.",
-  },
-  {
-    name: "Code Sangam'24",
-    rest: " — first place, against 60+ teams.",
-  },
-  {
-    name: "Design Blitz",
-    proof: "https://drive.google.com/file/d/1DYyxlMxTytPXUTV-92-9u-vKgwVs6YiG/view",
-    rest: " — first place.",
-  },
-  {
-    name: "Hacked-a-thon",
-    proof: "https://drive.google.com/file/d/1CBhThPy9ctJhdbq1AJdvJpAC4Kfm9W7p/view",
-    rest: " — third, out of 50+ teams.",
-  },
-  {
-    name: "Innoverse'36",
-    proof: "https://drive.google.com/file/d/1wISYOtPvuCBVcNiKnVeMzWNwd1e7bdq4/view",
-    rest: " — third place.",
-  },
-];
+/** An achievement that has a certificate behind it. */
+function Cert({ href, children }) {
+  return (
+    <a href={href} target="_blank" rel="noreferrer">
+      {children}
+    </a>
+  );
+}
+
+const CERT = {
+  hackItUp: "https://drive.google.com/file/d/1CfPuv0vRJnND9VaEXLxD0-AuOhzsXeK3/view",
+  placement: "https://drive.google.com/file/d/1B9iPB2LQqfDBTJsOnGBadsmNaJ8SND09/view",
+  designBlitz: "https://drive.google.com/file/d/1DYyxlMxTytPXUTV-92-9u-vKgwVs6YiG/view",
+  hackedAThon: "https://drive.google.com/file/d/1CBhThPy9ctJhdbq1AJdvJpAC4Kfm9W7p/view",
+  innoverse: "https://drive.google.com/file/d/1wISYOtPvuCBVcNiKnVeMzWNwd1e7bdq4/view",
+};
 
 export default function MePage() {
   return (
@@ -340,20 +316,25 @@ export default function MePage() {
 
       <section>
         <h2 className="me-section-title">Leadership &amp; awards</h2>
-        <ul className="me-awards">
-          {AWARDS.map((a) => (
-            <li key={a.name}>
-              {a.proof ? (
-                <a href={a.proof} target="_blank" rel="noreferrer">
-                  {a.name}
-                </a>
-              ) : (
-                <b>{a.name}</b>
-              )}
-              {a.rest}
-            </li>
-          ))}
-        </ul>
+        {/* Written as three sentences rather than seven bullets. A list where
+            every item gets its own line makes six small things look like six
+            equal things, and the reading gets slower the more of them there
+            are. The names still carry their certificates. */}
+        <div className="me-awards">
+          <p>
+            I run <Cert href={CERT.placement}>placements</Cert> for my department
+            and I&apos;m secretary of MRSDC, the developer community at my
+            college — ten-odd events so far, usually 60 to 80 people in the room.
+            One of them was <Cert href={CERT.hackItUp}>Hack It Up</Cert>, our
+            intra-college hackathon, which I ran end to end.
+          </p>
+          <p>
+            Won <b>Code Sangam&apos;24</b> against 60-plus teams and{" "}
+            <Cert href={CERT.designBlitz}>Design Blitz</Cert>. Came third at{" "}
+            <Cert href={CERT.hackedAThon}>Hacked-a-thon</Cert> out of 50-plus,
+            and at <Cert href={CERT.innoverse}>Innoverse&apos;36</Cert>.
+          </p>
+        </div>
       </section>
 
       <footer className="me-foot">
