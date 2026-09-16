@@ -1069,3 +1069,273 @@
     translate: none;
   }
 }
+
+/*
+ * Terminal / Less CSS mode
+ */
+.me[data-css="off"] {
+  --ink: #fff;
+  --ink-2: #ccc;
+  --ink-3: #999;
+  --paper: #0a0a0a;
+
+  font-family: var(--font-geist-mono), ui-monospace, monospace !important;
+  font-size: 14px;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 2rem 1.5rem;
+  interpolate-size: none;
+  background-color: var(--paper) !important;
+  color: var(--ink) !important;
+}
+
+.me[data-css="off"]::before {
+  display: none;
+}
+.me[data-css="off"]::after {
+  background-color: var(--paper) !important;
+}
+.me[data-css="off"] .me-pre {
+  display: none;
+}
+
+.me[data-css="off"] * {
+  font-family: inherit !important;
+  transition: none !important;
+  animation: none !important;
+  transform: none !important;
+  letter-spacing: normal !important;
+  text-transform: none !important;
+}
+
+/* Reset layout */
+.me[data-css="off"] header,
+.me[data-css="off"] section,
+.me[data-css="off"] footer,
+.me[data-css="off"] .me-links,
+.me[data-css="off"] .me-jobs > li,
+.me[data-css="off"] .me-projects > li {
+  display: block;
+  border: none;
+  padding: 0;
+  margin: 0 0 2rem 0;
+}
+
+.me[data-css="off"] section::before {
+  display: none !important;
+}
+.me[data-css="off"] section:hover {
+  --ink: #fff !important;
+  --ink-2: #ccc !important;
+  --ink-3: #999 !important;
+  --paper: #0a0a0a !important;
+  color: var(--ink) !important;
+  background: none !important;
+}
+
+.me[data-css="off"] .me-links,
+.me[data-css="off"] .me-jobs,
+.me[data-css="off"] .me-projects,
+.me[data-css="off"] .me-jobs ul {
+  list-style: none;
+  padding: 0;
+}
+
+.me[data-css="off"] .me-section-title::before {
+  content: "# ";
+}
+
+.me[data-css="off"] .me-section-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+.me[data-css="off"] .me-details summary .me-section-title::after {
+  content: none;
+}
+
+.me[data-css="off"] h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin-bottom: 2rem;
+  white-space: normal;
+}
+.me[data-css="off"] h1 em {
+  color: var(--ink);
+}
+
+.me[data-css="off"] .me-standfirst {
+  display: none;
+}
+
+.me[data-css="off"] .me-links {
+  display: flex;
+  flex-direction: row;
+  gap: 1rem;
+  margin-bottom: 3rem;
+  flex-wrap: wrap;
+}
+.me[data-css="off"] .me-links li {
+  display: inline-block;
+  margin: 0;
+}
+.me[data-css="off"] .me-links span {
+  display: none;
+}
+.me[data-css="off"] .me-links a {
+  text-decoration: underline;
+}
+.me[data-css="off"] .me-links a::after {
+  display: none;
+}
+
+.me[data-css="off"] .me-edu {
+  display: none;
+}
+
+.me[data-css="off"] .me-details::details-content {
+  display: block;
+  opacity: 1;
+  translate: none;
+  overflow: visible;
+  height: auto !important;
+  block-size: auto !important;
+  content-visibility: visible;
+}
+.me[data-css="off"] .me-summary-line {
+  display: none;
+}
+
+/* Jobs */
+.me[data-css="off"] .me-jobs > li {
+  margin-bottom: 1.5rem;
+}
+.me[data-css="off"] .me-row {
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.me[data-css="off"] h3 {
+  font-size: 1rem;
+  display: inline;
+}
+.me[data-css="off"] .me-jobs h3 a {
+  text-decoration: underline;
+}
+.me[data-css="off"] .me-jobs h3 a::after {
+  display: none;
+}
+.me[data-css="off"] .me-role {
+  display: inline;
+  color: var(--ink-2);
+}
+.me[data-css="off"] .me-role::before {
+  content: " (";
+}
+.me[data-css="off"] .me-role::after {
+  content: ")";
+}
+.me[data-css="off"] .me-when {
+  display: block;
+  color: var(--ink-2);
+}
+.me[data-css="off"] .me-jobs ul {
+  margin-top: 0.5rem;
+}
+.me[data-css="off"] .me-jobs ul li {
+  padding-left: 0;
+  margin-top: 0.25rem;
+  color: var(--ink-2);
+}
+.me[data-css="off"] .me-jobs ul li::before {
+  content: "- ";
+  position: static;
+  width: auto;
+  height: auto;
+  background: none;
+}
+
+/* Projects */
+.me[data-css="off"] .me-projects > li {
+  display: block;
+  margin-bottom: 1.5rem;
+}
+.me[data-css="off"] .me-num {
+  display: none;
+}
+.me[data-css="off"] .me-projects p {
+  color: var(--ink-2);
+  margin-top: 0.25rem;
+  max-width: 100%;
+}
+.me[data-css="off"] .me-meta {
+  display: block;
+  margin-top: 0.5rem;
+}
+.me[data-css="off"] .me-meta span {
+  display: none;
+}
+.me[data-css="off"] .me-meta a {
+  text-decoration: underline;
+  margin-right: 1rem;
+}
+.me[data-css="off"] .me-meta a::after {
+  display: none;
+}
+
+/* Skills */
+.me[data-css="off"] .me-skills > div {
+  display: block;
+  padding: 0;
+  margin-bottom: 0.5rem;
+}
+.me[data-css="off"] .me-skills dt {
+  display: inline;
+  font-weight: bold;
+  color: var(--ink);
+}
+.me[data-css="off"] .me-skills dt::after {
+  content: ": ";
+}
+.me[data-css="off"] .me-skills dd {
+  display: inline;
+  margin-left: 0.5rem;
+}
+
+/* Awards */
+.me[data-css="off"] .me-awards p {
+  margin-bottom: 1rem;
+}
+.me[data-css="off"] .me-awards a {
+  text-decoration: underline;
+}
+.me[data-css="off"] .me-awards a::after {
+  display: none;
+}
+
+/* Footer */
+.me[data-css="off"] .me-foot {
+  display: none;
+}
+
+/* Preserve Switch but unstyle it heavily */
+.me[data-css="off"] .me-switches {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+.me[data-css="off"] .me-toggle {
+  background: none;
+  border: none;
+  color: var(--ink);
+  cursor: pointer;
+  text-decoration: underline;
+  display: block;
+}
+.me[data-css="off"] .me-toggle-track {
+  display: none;
+}

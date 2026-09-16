@@ -188,6 +188,7 @@ export default function MePage() {
 
       <div className="me-switches">
         <Switch label="Highlight" attr="highlight" storageKey="me_highlight" />
+        <Switch label="CSS" attr="css" storageKey="me_css" defaultOn={true} />
       </div>
 
       <header className="me-head">
