@@ -6,7 +6,7 @@ import Link from "next/link";
 export default function Footer() {
     return (
         <footer className="relative w-full py-20 px-6 md:px-12 overflow-hidden bg-transparent">
-            <div className="max-w-7xl mx-auto flex flex-col items-center justify-center">
+            <div className=" mx-auto flex flex-col items-center justify-center">
                 <motion.h1
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
