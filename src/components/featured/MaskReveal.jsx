@@ -62,12 +62,18 @@ function RevealProject({ project, index, flip }) {
   // a window rather than a border around a static picture.
   const y = useTransform(scrollYProgress, [0, 1], ["-22%", "0%"]);
 
+  // The text container gets a slight opposite parallax to the image, making the whole row feel dimensional.
+  const textY = useTransform(scrollYProgress, [0, 1], ["15%", "-15%"]);
+
   return (
     <div
       ref={ref}
       className="grid grid-cols-1 items-center gap-12 py-20 md:grid-cols-12 md:py-28 lg:gap-24"
     >
-      <div className={`order-2 md:col-span-5 ${flip ? "md:order-2" : "md:order-1"}`}>
+      <motion.div 
+        style={{ y: textY }}
+        className={`order-2 md:col-span-5 ${flip ? "md:order-2" : "md:order-1"}`}
+      >
         {/* Index rule. The hairline grows out from the number as the block
             arrives, which gives the eye somewhere to start reading. */}
         <div className="flex items-center gap-4 font-mono text-xs tracking-[0.2em] text-gray-500">
@@ -145,7 +151,7 @@ function RevealProject({ project, index, flip }) {
             accent={project.accent}
           />
         </motion.div>
-      </div>
+      </motion.div>
 
       {/* The masked frame. clip-path on a wrapper rather than scaling the image
           itself, so the picture never appears to zoom while it uncovers. */}

@@ -7,9 +7,8 @@ import Footer from "./sections/Footer";
 
 export default function HomePage() {
   return (
-    <div className="pt-24">
+    <div className="pt-24 flex flex-col gap-32">
       <AboutPage />
-
       <Featured />
       <Internship />
       <Footer />

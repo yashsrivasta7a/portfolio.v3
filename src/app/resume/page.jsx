@@ -23,7 +23,7 @@ export default function ResumePage() {
         </motion.div>
 
         <motion.a
-          href="/2026_Resume.pdf"
+          href="/Latest_Resume.pdf"
           download="Yash_Srivastava_Resume.pdf"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}

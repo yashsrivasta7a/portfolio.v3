@@ -66,14 +66,35 @@ export const metadata = {
       "max-snippet": -1,
     },
   },
+  alternates: {
+    canonical: "https://www.yashsrivasta7a.in",
+  },
 };
 
 export default function RootLayout({ children }) {
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    name: "Yash Srivastava",
+    url: "https://www.yashsrivasta7a.in",
+    image: "https://www.yashsrivasta7a.in/images/admin.jpg",
+    jobTitle: "Full Stack Developer",
+    sameAs: [
+      "https://www.github.com/yashsrivasta7a",
+      "https://www.linkedin.com/in/yashsrivasta7a",
+      "https://www.twitter.com/YashSrivasta7a",
+    ],
+  };
+
   return (
     <html lang="en">
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f8f7f4] selection:bg-orange-200`}
       >
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <SmoothScroll>
           <div className="fixed top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-orange-200/20 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow" />
           <div className="fixed bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-blue-200/20 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow" style={{ animationDelay: "7.5s" }} />
