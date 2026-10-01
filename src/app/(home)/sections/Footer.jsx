@@ -11,7 +11,7 @@ export default function Footer() {
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8, ease: "easeOut" }}
-                    className="text-[12vw] md:text-[12vw] font-bold satoshi1 tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-b from-neutral-800 from-10% via-neutral-800/25 via-45% to-transparent to-95% [mask-image:linear-gradient(to_bottom,black_99%,transparent_99%)] select-none"
+                    className="text-[12vw] whitespace-nowrap font-bold satoshi1 tracking-tighter leading-none text-transparent bg-clip-text bg-gradient-to-b from-neutral-800 from-10% via-neutral-800/25 via-45% to-transparent to-95% [mask-image:linear-gradient(to_bottom,black_99%,transparent_99%)] select-none"
                 >
                     Yash Srivastava
                 </motion.h1>

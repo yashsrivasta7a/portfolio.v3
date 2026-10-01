@@ -6,7 +6,7 @@
 /* Satoshi variable font (preferred) */
 @font-face {
   font-family: "satoshi";
-  src: url("/font/satoshi4.woff2") format("woff2");
+  src: url("/font/Satoshi-Variable.woff2") format("woff2");
   font-weight: 100 900;
   font-style: normal;
   font-display: swap;
@@ -15,7 +15,7 @@
 /* Satoshi variable italic (preferred) */
 @font-face {
   font-family: "satoshi";
-  src: url("/font/satoshi4Italic.woff2") format("woff2");
+  src: url("/font/Satoshi-VariableItalic.woff2") format("woff2");
   font-weight: 100 900;
   font-style: italic;
   font-display: swap;
@@ -24,8 +24,8 @@
 /* Static fallbacks (common weights) */
 @font-face {
   font-family: "satoshi";
-    src: url("/font/satoshi5Italic.woff2") format("woff2"),
-      url("/font/satoshi5Italic.woff") format("woff");
+    src: url("/font/Satoshi-LightItalic.woff2") format("woff2"),
+      url("/font/Satoshi-LightItalic.woff") format("woff");
   font-weight: 300;
   font-style: italic;
   font-display: swap;
@@ -42,21 +42,14 @@
 
 @font-face {
   font-family: "satoshi";
-    src: url("/font/satoshi5.woff2") format("woff2"),
-      url("/font/satoshi5.woff") format("woff");
+    src: url("/font/Satoshi-Medium.woff2") format("woff2"),
+      url("/font/Satoshi-Medium.woff") format("woff");
   font-weight: 500;
   font-style: normal;
   font-display: swap;
 }
 
-@font-face {
-  font-family: "satoshi";
-    src: url("/font/Satoshi-SemiBold.woff2") format("woff2"),
-      url("/font/Satoshi-SemiBold.woff") format("woff");
-  font-weight: 600;
-  font-style: normal;
-  font-display: swap;
-}
+/* No static SemiBold file ships; 600 comes from the variable face above. */
 
 @font-face {
   font-family: "satoshi";
@@ -70,7 +63,7 @@
 @font-face {
   font-family: "satoshi";
     src: url("/font/Satoshi-Black.woff2") format("woff2"),
-      url("/font/Satoshi-ExtraBold.woff") format("woff");
+      url("/font/Satoshi-Black.woff") format("woff");
   font-weight: 800;
   font-style: normal;
   font-display: swap;

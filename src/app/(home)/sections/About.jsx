@@ -36,6 +36,20 @@ export default function AboutPage() {
                     >
                         <span className="text-[15vw] md:text-[12vw] leading-[0.85] font-serif italic font-light text-gray-700">Srivastava.</span>
                     </motion.div>
+                    {/* Availability: links down to the contact section */}
+                    <motion.a
+                        href="#contact"
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="mt-8 md:mt-10 ml-2 md:ml-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/50 backdrop-blur-sm px-4 py-2 text-xs md:text-sm text-gray-700 hover:bg-gray-900 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gray-900"
+                    >
+                        <span className="relative flex size-2">
+                            <span className="absolute inset-0 rounded-full bg-emerald-500/60 motion-safe:animate-ping" />
+                            <span className="relative size-2 rounded-full bg-emerald-500" />
+                        </span>
+                        Available for freelance work
+                    </motion.a>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mt-4 md:mt-24">
 

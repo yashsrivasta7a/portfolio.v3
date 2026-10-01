@@ -3,6 +3,7 @@ import TechStack from "./sections/TechStack";
 import Featured from "./sections/Featured";
 import Internship from "./sections/Internship";
 import AboutPage from "./sections/About";
+import Contact from "./sections/Contact";
 import Footer from "./sections/Footer";
 
 export default function HomePage() {
@@ -12,6 +13,7 @@ export default function HomePage() {
 
       <Featured />
       <Internship />
+      <Contact />
       <Footer />
     </div>
   );
