@@ -2,6 +2,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import NavbarWrapper from "@/components/NavbarWrapper";
 import SmoothScroll from "@/components/SmoothScroll";
+import Preloader from "@/components/Preloader";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -71,9 +72,14 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+        {/* The preloader sets the name in Satoshi on first paint; without this it would flash the fallback */}
+        <link rel="preload" href="/font/Satoshi-Variable.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-[#f8f7f4] selection:bg-orange-200`}
       >
+        <Preloader />
         <SmoothScroll>
           <div className="fixed top-[-20%] left-[-10%] w-[50vw] h-[50vw] bg-orange-200/20 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow" />
           <div className="fixed bottom-[-20%] right-[-10%] w-[60vw] h-[60vw] bg-blue-200/20 rounded-full blur-[120px] pointer-events-none z-0 animate-pulse-slow" style={{ animationDelay: "7.5s" }} />

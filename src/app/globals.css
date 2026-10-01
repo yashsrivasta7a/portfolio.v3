@@ -80,6 +80,7 @@
 }
 
 @theme inline {
+  --animate-ys7-spin: ys7-spin 16s linear infinite;
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
@@ -252,4 +253,10 @@ body {
 
 .animate-pulse-slow {
   animation: pulse-slow 15s ease-in-out infinite;
+}
+
+/* The YS7 watermark in the hero: a slow turn on a slightly tilted axis */
+@keyframes ys7-spin {
+  from { transform: rotateX(14deg) rotateY(0turn); }
+  to   { transform: rotateX(14deg) rotateY(1turn); }
 }

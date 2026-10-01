@@ -3,6 +3,11 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
 import GitHubActivity from "@/components/GitHubActivity";
+import { useIntroDone } from "@/lib/intro";
+import YS7Mark from "@/components/YS7Mark";
+
+// Hero entrances wait for the preloader to lift, so they play in view rather than behind it.
+const rise = (y) => ({ hidden: { opacity: 0, y }, show: { opacity: 1, y: 0 } });
 
 export default function AboutPage() {
     const containerRef = useRef(null);
@@ -13,43 +18,67 @@ export default function AboutPage() {
 
     const y1 = useTransform(scrollYProgress, [0, 1], [0, -100]);
     const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
+    const hero = useIntroDone() ? "show" : "hidden";
 
     return (
         <div ref={containerRef} className="min-h-screen text-[#1a1a1a]">
 
             <div className="max-w-[1800px] mx-auto px-6 md:px-12 lg:px-24 pt-16 md:pt-32 pb-20 relative z-10">
 
-                <div className="flex flex-col items-start justify-center min-h-auto mb-10 md:mb-0 md:min-h-[40vh]">
+                <div className="relative flex flex-col items-start justify-center min-h-auto mb-10 md:mb-0 md:min-h-[40vh]">
+                    {/* The YS7 mark, as the preloader leaves it, watermarked into the empty right side */}
+                    <motion.div
+                        variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 0.08, y: 0 } }}
+                        initial="hidden"
+                        animate={hero}
+                        transition={{ duration: 1.4, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
+                        className="pointer-events-none absolute right-[-10%] top-[5%] rotate-[20deg] hidden w-[36vw] max-w-[560px] -translate-y-1/2 md:block"
+                    >
+                        <YS7Mark />
+                    </motion.div>
                     <motion.h1
-                        initial={{ opacity: 0, y: 100 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        variants={rise(100)}
+                        initial="hidden"
+                        animate={hero}
                         transition={{ duration: 1, ease: [0.22, 1, 0.36, 1] }}
                         className="text-[15vw] md:text-[12vw] satoshi1 leading-[0.85] font-bold tracking-tighter text-[#1a1a1a]"
                     >
                         Yash
                     </motion.h1>
                     <motion.div
-                        initial={{ opacity: 0, y: 100 }}
-                        animate={{ opacity: 1, y: 0 }}
+                        variants={rise(100)}
+                        initial="hidden"
+                        animate={hero}
                         transition={{ duration: 1, delay: 0.1, ease: [0.22, 1, 0.36, 1] }}
                         className="flex items-center gap-4 md:gap-8 ml-2 md:ml-4"
                     >
                         <span className="text-[15vw] md:text-[12vw] leading-[0.85] font-serif italic font-light text-gray-700">Srivastava.</span>
                     </motion.div>
-                    {/* Availability: links down to the contact section */}
-                    <motion.a
-                        href="#contact"
-                        initial={{ opacity: 0, y: 20 }}
-                        animate={{ opacity: 1, y: 0 }}
+                    {/* Availability (to contact) + resume, one click each instead of via the floating menu */}
+                    <motion.div
+                        variants={rise(20)}
+                        initial="hidden"
+                        animate={hero}
                         transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        className="mt-8 md:mt-10 ml-2 md:ml-4 inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/50 backdrop-blur-sm px-4 py-2 text-xs md:text-sm text-gray-700 hover:bg-gray-900 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gray-900"
+                        className="mt-8 md:mt-10 ml-2 md:ml-4 flex flex-wrap items-center gap-2 md:gap-3"
                     >
-                        <span className="relative flex size-2">
-                            <span className="absolute inset-0 rounded-full bg-emerald-500/60 motion-safe:animate-ping" />
-                            <span className="relative size-2 rounded-full bg-emerald-500" />
-                        </span>
-                        Available for freelance work
-                    </motion.a>
+                        <a
+                            href="#contact"
+                            className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/50 backdrop-blur-sm px-4 py-2 text-xs md:text-sm text-gray-700 hover:bg-gray-900 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gray-900"
+                        >
+                            <span className="relative flex size-2">
+                                <span className="absolute inset-0 rounded-full bg-emerald-500/60 motion-safe:animate-ping" />
+                                <span className="relative size-2 rounded-full bg-emerald-500" />
+                            </span>
+                            Available for freelance work
+                        </a>
+                        <a
+                            href="/resume"
+                            className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-4 py-2 text-xs md:text-sm text-white hover:bg-gray-700 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gray-900"
+                        >
+                            Resume ↗
+                        </a>
+                    </motion.div>
                 </div>
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-24 mt-4 md:mt-24">
 
@@ -108,8 +137,9 @@ export default function AboutPage() {
                     {/* Images - Order 1 on mobile */}
                     <div className="lg:col-span-7 relative order-1 lg:order-2 space-y-12 md:space-y-0">
                         <motion.div
-                            initial={{ opacity: 0, y: 50 }}
-                            animate={{ opacity: 1, y: 0 }}
+                            variants={rise(50)}
+                            initial="hidden"
+                            animate={hero}
                             transition={{ duration: 1, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
                             style={{ y: y1 }}
                             className="relative z-20"
