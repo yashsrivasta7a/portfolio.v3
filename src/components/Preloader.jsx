@@ -28,12 +28,12 @@ const SESSION_KEY = "home_intro_played";
 // Seconds. Particles start flying at GATHER, each with its own delay up to
 // STAGGER, and take FLIGHT to land; the last lands as the counter hits 100.
 // At RELEASE the wind takes them; the ink starts fading FADE_LAG later.
-const GATHER = 0.25;
-const STAGGER = 0.55;
-const FLIGHT = 1.45;
-const RELEASE = 2.55;
-const FADE_LAG = 0.2;
-const END = 3.7;
+const GATHER = 0.15;
+const STAGGER = 0.35;
+const FLIGHT = 0.95;
+const RELEASE = 1.6;
+const FADE_LAG = 0.15;
+const END = 2.3;
 
 const VERT = /* glsl */ `
 attribute vec2 aTarget;  // where it lands, as a fraction of the logo box
@@ -79,10 +79,10 @@ void main() {
   } else {
     // Wind from the left: a sweep by column, then each mote lifts and fades on its own.
     p = pushed(assembled(RELEASE, e, settle), 1.0);
-    float td = max(0.0, uTime - RELEASE - aTarget.x * 0.22);
-    p.x += td * 160.0 * aWind.x + td * td * 1400.0;
-    p.y -= td * 90.0 * aWind.y + td * td * 300.0 - sin(td * 7.0 + aSeed.z) * 5.0;
-    alpha = max(0.0, 1.0 - td / 0.55);
+    float td = max(0.0, uTime - RELEASE - aTarget.x * 0.18);
+    p.x += td * 200.0 * aWind.x + td * td * 1600.0;
+    p.y -= td * 110.0 * aWind.y + td * td * 350.0 - sin(td * 7.0 + aSeed.z) * 5.0;
+    alpha = max(0.0, 1.0 - td / 0.45);
   }
   vAlpha = alpha;
   vec2 clip = p / uRes * 2.0 - 1.0;
@@ -96,7 +96,8 @@ varying float vAlpha;
 void main() {
   float d = length(gl_PointCoord - 0.5) * 2.0;
   float a = smoothstep(1.0, 0.25, d) * vAlpha;
-  gl_FragColor = vec4(vec3(a), a); // premultiplied
+  vec3 ink = vec3(0.10);
+  gl_FragColor = vec4(ink * a, a); // premultiplied ink
 }`;
 
 function compile(gl, type, src) {
@@ -261,20 +262,20 @@ export default function Preloader() {
   return (
     <div
       aria-hidden
-      className="fixed inset-0 z-[2000] bg-[#0e0e0e] text-[#f8f7f4] transition-opacity duration-[900ms] ease-out"
+      className="fixed inset-0 z-[2000] bg-[#f8f7f4] text-[#1a1a1a] transition-opacity duration-500 ease-out"
       style={{ opacity: leaving ? 0 : 1 }}
     >
-      {/* A faint pool of light where the mark will form */}
-      <div className="absolute left-1/2 top-1/2 size-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(255,255,255,0.07),transparent_65%)]" />
+      {/* A subtle pool of depth where the mark will form */}
+      <div className="absolute left-1/2 top-1/2 size-[70vmin] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[radial-gradient(circle,rgba(0,0,0,0.03),transparent_65%)]" />
       <canvas ref={canvasRef} className="absolute inset-0" />
 
       {/* Corners, in the site's mono caption voice */}
-      <p className="absolute bottom-6 left-6 md:bottom-10 md:left-12 font-mono text-xs text-[#f8f7f4]/55">
+      <p className="absolute bottom-6 left-6 md:bottom-10 md:left-12 font-mono text-xs text-[#1a1a1a]/55">
         FIG 00. — LOADING
       </p>
       <p
         ref={counterRef}
-        className="absolute bottom-6 right-6 md:bottom-10 md:right-12 font-mono text-xs tabular-nums text-[#f8f7f4]/55"
+        className="absolute bottom-6 right-6 md:bottom-10 md:right-12 font-mono text-xs tabular-nums text-[#1a1a1a]/55"
       >
         000
       </p>

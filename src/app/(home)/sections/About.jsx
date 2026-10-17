@@ -1,7 +1,8 @@
 "use client";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring } from "framer-motion";
 import Image from "next/image";
 import { useRef } from "react";
+import { ArrowUpRight } from "lucide-react";
 import GitHubActivity from "@/components/GitHubActivity";
 import { useIntroDone } from "@/lib/intro";
 import YS7Mark from "@/components/YS7Mark";
@@ -20,6 +21,20 @@ export default function AboutPage() {
     const y2 = useTransform(scrollYProgress, [0, 1], [0, 100]);
     const hero = useIntroDone() ? "show" : "hidden";
 
+    // Smooth spring physics for organic inertia on scroll
+    const smoothProgress = useSpring(scrollYProgress, {
+        stiffness: 80,
+        damping: 24,
+        mass: 0.5,
+        restDelta: 0.001,
+    });
+
+    const markY = useTransform(smoothProgress, [0, 0.8], [-20, 240]);
+    const markX = useTransform(smoothProgress, [0, 0.8], [0, -50]);
+    const markRotate = useTransform(smoothProgress, [0, 0.8], [18, 38]);
+    const markScale = useTransform(smoothProgress, [0, 0.4, 0.8], [1, 1.08, 0.92]);
+    const markOpacity = useTransform(smoothProgress, [0, 0.3, 0.75], [0.08, 0.13, 0]);
+
     return (
         <div ref={containerRef} className="min-h-screen text-[#1a1a1a]">
 
@@ -28,13 +43,24 @@ export default function AboutPage() {
                 <div className="relative flex flex-col items-start justify-center min-h-auto mb-10 md:mb-0 md:min-h-[40vh]">
                     {/* The YS7 mark, as the preloader leaves it, watermarked into the empty right side */}
                     <motion.div
-                        variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 0.08, y: 0 } }}
+                        variants={{ hidden: { opacity: 0, y: 30 }, show: { opacity: 1, y: 0 } }}
                         initial="hidden"
                         animate={hero}
                         transition={{ duration: 1.4, delay: 0.5, ease: [0.22, 1, 0.36, 1] }}
-                        className="pointer-events-none absolute right-[-10%] top-[5%] rotate-[20deg] hidden w-[36vw] max-w-[560px] -translate-y-1/2 md:block"
+                        className="pointer-events-none absolute right-[-10%] top-[5%] -translate-y-1/2 hidden md:block w-[36vw] max-w-[560px]"
                     >
-                        <YS7Mark />
+                        <motion.div
+                            style={{
+                                y: markY,
+                                x: markX,
+                                rotate: markRotate,
+                                scale: markScale,
+                                opacity: markOpacity,
+                            }}
+                            className="w-full will-change-transform"
+                        >
+                            <YS7Mark />
+                        </motion.div>
                     </motion.div>
                     <motion.h1
                         variants={rise(100)}
@@ -60,23 +86,24 @@ export default function AboutPage() {
                         initial="hidden"
                         animate={hero}
                         transition={{ duration: 1, delay: 0.3, ease: [0.22, 1, 0.36, 1] }}
-                        className="mt-8 md:mt-10 ml-2 md:ml-4 flex flex-wrap items-center gap-2 md:gap-3"
+                        className="mt-8 md:mt-10 ml-2 md:ml-4 flex flex-wrap items-center gap-2.5"
                     >
                         <a
                             href="#contact"
-                            className="inline-flex items-center gap-2 rounded-full border border-gray-200 bg-white/50 backdrop-blur-sm px-4 py-2 text-xs md:text-sm text-gray-700 hover:bg-gray-900 hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gray-900"
+                            className="group inline-flex h-9 items-center gap-2 rounded-full border border-[#1a1a1a]/10 bg-white/70 backdrop-blur-sm px-4 font-mono text-xs text-[#1a1a1a]/80 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-[#1a1a1a]/30 hover:bg-white hover:text-[#1a1a1a] transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1a1a1a]"
                         >
                             <span className="relative flex size-2">
-                                <span className="absolute inset-0 rounded-full bg-emerald-500/60 motion-safe:animate-ping" />
+                                <span className="absolute inset-0 rounded-full bg-emerald-500/50 motion-safe:animate-ping" />
                                 <span className="relative size-2 rounded-full bg-emerald-500" />
                             </span>
-                            Available for freelance work
+                            <span>Available for freelance work</span>
                         </a>
                         <a
                             href="/resume"
-                            className="inline-flex items-center gap-1.5 rounded-full bg-gray-900 px-4 py-2 text-xs md:text-sm text-white hover:bg-gray-700 transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-gray-900"
+                            className="group inline-flex h-9 items-center gap-1.5 rounded-full border border-[#1a1a1a]/10 bg-white/70 backdrop-blur-sm px-4 font-mono text-xs text-[#1a1a1a]/80 shadow-[0_1px_2px_rgba(0,0,0,0.03)] hover:border-[#1a1a1a] hover:bg-[#1a1a1a] hover:text-[#f8f7f4] transition-all duration-200 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#1a1a1a]"
                         >
-                            Resume ↗
+                            <span>Resume</span>
+                            <ArrowUpRight className="size-3.5 text-[#1a1a1a]/50 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-[#f8f7f4]" />
                         </a>
                     </motion.div>
                 </div>
@@ -99,7 +126,7 @@ export default function AboutPage() {
                         <div className="space-y-6 md:space-y-8">
                             <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-gray-700">The Philosophy</h3>
                             <p className="text-base md:text-lg text-gray-600 leading-relaxed">
-                                I believe in software that feels human. It's not just about the pixels or the performance metrics, it's about the feeling a user gets when they interact with a product. Smooth transitions, thoughtful micro-interactions, and a cohesive visual language are my tools of choice.
+                                I believe in software that feels human. It&apos;s not just about the pixels or the performance metrics, it&apos;s about the feeling a user gets when they interact with a product. Smooth transitions, thoughtful micro-interactions, and a cohesive visual language are my tools of choice.
                             </p>
                         </div>
 
